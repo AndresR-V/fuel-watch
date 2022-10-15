@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="col-xl-3 col-sm-6 col-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between px-md-1">
+          <div class="align-self-center">
+            <i class="fa-4x text-info"
+              ><fa-icon [icon]="faGasPump"></fa-icon
+            ></i>
+          </div>
+          <div class="text-end">
+            <h3>278</h3>
+            <p class="mb-0">New Posts</p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >
+            Evolución de precio
+          </button>
+
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse panel show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">Gráfica de evolucion</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
