@@ -3,9 +3,5 @@
 <app-header></app-header>
 
 <div>
-  <app-card></app-card>
-  <app-card></app-card>
-  <app-card></app-card>
-  <app-card></app-card>
-  <app-card></app-card>
+  <app-card [dataEntrante]="card" *ngFor="let card of arrayTarjetas"></app-card>
 </div>

@@ -4,36 +4,31 @@
       <div class="card-body">
         <div class="d-flex justify-content-between px-md-1">
           <div class="align-self-center">
-            <i class="fa-4x text-info"
+            <i
+              class="fa-4x"
+              [ngClass]="{
+                'text-danger': dataEntrante.marca == 'Repsol',
+                'text-warning': dataEntrante.marca == 'Shell',
+                'text-success': dataEntrante.marca == 'BP'
+              }"
               ><fa-icon [icon]="faGasPump"></fa-icon
             ></i>
+
+            <h3>{{ dataEntrante.marca }}</h3>
           </div>
           <div class="text-end">
-            <h3>278</h3>
-            <p class="mb-0">New Posts</p>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <button
-            class="accordion-button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseOne"
-            aria-expanded="false"
-            aria-controls="collapseOne"
-          >
-            Evolución de precio
-          </button>
-
-          <div
-            id="collapseOne"
-            class="accordion-collapse collapse panel show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">Gráfica de evolucion</div>
+            <ul>
+              <li *ngFor="let precio of dataEntrante.precios">
+                <span>{{ precio.tipo }} </span> :
+                <strong
+                  [ngClass]="{
+                    'text-danger': precio.precio > 1.9,
+                    'text-success': precio.precio < 1.4
+                  }"
+                  >{{ precio.precio }}
+                </strong>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

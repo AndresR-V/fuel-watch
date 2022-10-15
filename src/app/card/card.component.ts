@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input } from '@angular/core';
 import { faGasPump } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,6 +7,10 @@ import { faGasPump } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+
+
+  // para conectar con otros componentes
+  @Input() dataEntrante:any;
 
   constructor() { }
 

@@ -2,8 +2,14 @@
 
 body {
   background-color: #f5f7fa;
+  font-family: 'mononoki NF', lato, Montserrat, sans-serif;
+  font-size:24px;
 }
 
 .panel, .panel-group .panel-heading+.panel-collapse>.panel-body{
   border: none;
 }
+ul, li {
+  list-style: none;
+}
+
