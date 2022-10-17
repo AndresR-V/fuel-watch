@@ -14,6 +14,9 @@ interface Tarjeta{
 export class AppComponent implements OnInit {
   title = 'Fuel-Watch';
 
+
+
+
   public arrayTarjetas: Tarjeta[] = [];
 
   ngOnInit():void {
@@ -38,6 +41,7 @@ export class AppComponent implements OnInit {
        }
     ];
   }
+
 
 
 }

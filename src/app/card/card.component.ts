@@ -19,4 +19,16 @@ export class CardComponent implements OnInit {
   }
 
   faGasPump = faGasPump;
+
+  boton ='ver mas';
+
+  botonVerMas(): void {
+    this.boton = this.boton=='ver mas' ?  'ver menos' : 'ver mas';
+
+  }
+
+
+
+
+
 }
