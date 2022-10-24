@@ -1,6 +1,7 @@
 import { Component, OnInit ,Input } from '@angular/core';
 import { faGasPump } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',

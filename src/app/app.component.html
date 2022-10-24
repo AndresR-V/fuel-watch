@@ -3,5 +3,11 @@
 <app-header></app-header>
 
 <div>
-  <app-card [dataEntrante]="card" *ngFor="let card of arrayTarjetas"></app-card>
+  <div class="container-fluid container-main">
+    <app-card
+      class="card"
+      [dataEntrante]="card"
+      *ngFor="let card of arrayTarjetas"
+    ></app-card>
+  </div>
 </div>

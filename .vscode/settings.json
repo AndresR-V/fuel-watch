@@ -1,3 +1,49 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "workbench.colorTheme": "Palenight Italic",
+
+
+    "editor.tokenColorCustomizations": {
+
+   "variables":"#ABB2BF",
+   "textMateRules":[
+    {
+    "scope:" : [
+      "keyword.operator",
+      "keyword.operator.arithmetic",
+      "keyword.operator.assignment",
+      "keyword.operator.logical",
+      "keyword.operator.new",
+      "keyword.operator.comparison",
+    ],
+    "settings":{
+      "foreground": "#56b6c2",
+    },
+  },
+    {
+      "scope":[
+        "comment",
+        "keyword.control",
+        "keyword.other",
+        "storage.type.function.js",
+        "storage.modifier.async.js",
+        "storage.type.js",
+      ],
+      "settings":{
+        "fontStyle": "italic",
+      },
+    },
+  ]
+
+ },
+"editor.semanticTokenColorCustomizations": {
+ "enabled": true,
+ "rules": {
+  "*.mutable": {
+    "underline": false
+  }
+ }
+},
+
 }
+
