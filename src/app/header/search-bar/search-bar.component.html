@@ -1,0 +1,15 @@
+<form [formGroup]="formSearchBar" (ngSubmit)="buscarUbicacion()">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      formControlName="target"
+      placeholder="Localidad o CP"
+    />
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit" name="buscar">
+        Buscar
+      </button>
+    </div>
+  </div>
+</form>

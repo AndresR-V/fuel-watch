@@ -10,18 +10,29 @@ import { CardComponent } from './card/card.component';
 
 import { CarburantesService } from "./services/carburantes.service";
 import { HttpClientModule } from "@angular/common/http";
+import { SearchBarComponent } from './header/search-bar/search-bar.component';
+import { FiltersComponent } from './header/filters/filters.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CardComponent,
+    SearchBarComponent,
+    FiltersComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ],
   providers: [CarburantesService],
   bootstrap: [AppComponent]
