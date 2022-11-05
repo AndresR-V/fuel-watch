@@ -1,6 +1,6 @@
 <h2>{{ title }}</h2>
-
-<app-header> </app-header>
+<app-filters></app-filters>
+<app-search-bar (searchValue)="ubicacionABuscar($event)"></app-search-bar>
 
 <div>
   <div class="container-fluid container-main">
