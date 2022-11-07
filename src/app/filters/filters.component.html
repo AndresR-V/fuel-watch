@@ -1,1 +1,73 @@
+<form class="form-filter" ng-change="capturaFiltro()" [formGroup]="filtersForm">
+  <div class="container-checkbox" (change)="readCheck($event)">
+    <h5>Mostrar precios de :</h5>
+    <div class="form-check">
+      <input
+        type="checkbox"
+        formConrtrolName="dieselEnable"
+        class="form-check-input"
+        id="dieselEnable"
+        checked
+      />
+      <label class="form-check-label" for="check1">Diesel</label>
+    </div>
 
+    <div class="form-check">
+      <input
+        type="checkbox"
+        formConrtrolName="dieselPlusEnable"
+        class="form-check-input"
+        id="dieselPlusEnable"
+        checked
+      />
+      <label class="form-check-label" for="check1">Diesel+</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        type="checkbox"
+        formConrtrolName="gas95Enable"
+        class="form-check-input"
+        id="gas95Enable"
+        checked
+      />
+      <label class="form-check-label" for="check1">Gasolina 95</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        type="checkbox"
+        formConrtrolName="gas98Enable"
+        class="form-check-input"
+        id="gas98Enable"
+        checked
+      />
+      <label class="form-check-label" for="check1">Gasolina 98</label>
+    </div>
+  </div>
+
+  <div class="container-slider">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      (change)="readSelect($event)"
+    >
+      <ng-container *ngFor="let combustible of combustibles">
+        <option *ngIf="combustible.active" [value]="combustible.code">
+          {{ combustible.name }}
+        </option>
+      </ng-container>
+    </select>
+
+    <div class="wrapper">
+      <ngx-slider
+        (valueChange)="readSlider($event)"
+        (highValueChange)="readSlider($event)"
+        formConrtrolName="sliderControl"
+        [(value)]="minValue"
+        [(highValue)]="maxValue"
+        [options]="options"
+      ></ngx-slider>
+    </div>
+  </div>
+</form>

@@ -15,6 +15,8 @@ import { FiltersComponent } from './filters/filters.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 // import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -31,7 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSliderModule
 
   ],
   providers: [CarburantesService],

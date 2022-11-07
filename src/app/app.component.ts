@@ -8,15 +8,6 @@ interface Tarjeta{
   numero?:number;
 }
 
-// interface Item{
-//     'Localidad':string;
-//     'Rótulo':string;
-//     'Dirección':string;
-//     'Precio Gasoleo A':string;
-//     'Precio Gasoleo Premium':string;
-//     'Precio Gasolina 95 E5':string;
-//     'Precio Gasolina 98 E5':string;
-//   };
 
 
 @Component({
@@ -33,13 +24,24 @@ export class AppComponent implements OnInit {
   public datosConsulta:any;
 
 
+  private itemBusqueda:string ="";
+  private combustiblesMostrar:boolean[]=[true,true,true,true]
+
+  private rangosPrecio = [[ 0.0,  0.0],[ 0.0,  0.0],[ 0.0,  0.0],[ 0.0,  0.0]];
+  // private precioMin:Number = 0.0;
+  // private precioMax:Number = 0.0;
 
 
-  constructor(private crudService:CrudService) { }
+
+  constructor(private crudService:CrudService) {
+
+  }
 
 // esta funcion se ejecuta el pulsar el boton buscar
 
 ubicacionABuscar(Item_busqueda: string) {
+  this.itemBusqueda = Item_busqueda;
+
   console.log(Item_busqueda);
   this.UbicacionABuscar = Item_busqueda.toUpperCase();
   console.log("Buscando...");
@@ -50,21 +52,51 @@ ubicacionABuscar(Item_busqueda: string) {
   this.arrayTarjetas=[];
   for (const n of Object.keys(this.datosConsulta)) {
 
-    console.log(this.datosConsulta[n]);
-    this.arrayTarjetas.push(
-      {
-        marca: this.datosConsulta[n]["rotulo"],
-        precios: [
-                      { tipo: "Diesel",       precio:  this.datosConsulta[n]["precio_diesel"] },
-                      { tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"] },
-                      { tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"]},
-                      { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"]},
-                    ]
+    // console.log(this.datosConsulta[n]);
+
+    // compropbamos rango precios:
+    if(
+      (this.datosConsulta[n]["precio_diesel"] >= this.rangosPrecio[0][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[0][1]) ||
+      (this.datosConsulta[n]["precio_diesel_extra"] >= this.rangosPrecio[1][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[1][1]) ||
+      (this.datosConsulta[n]["precio_gasolina_95"] >= this.rangosPrecio[2][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[2][1]) ||
+      (this.datosConsulta[n]["precio_gasolina_99"] >= this.rangosPrecio[3][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[3][1])
+      ){
+
+      let precios = [];
+
+      console.log("this.combustiblesMostrar : "+this.combustiblesMostrar)
+
+      if(this.combustiblesMostrar[0] && this.datosConsulta[n]["precio_diesel"] != 0){
+        precios.push({ tipo: "Diesel", precio:  this.datosConsulta[n]["precio_diesel"] });
+      }
+      if(this.combustiblesMostrar[1] && this.datosConsulta[n]["precio_diesel_extra"] != 0){
+        precios.push({ tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"] });
+      }
+      if(this.combustiblesMostrar[2] && this.datosConsulta[n]["precio_gasolina_95"] != 0){
+        precios.push({ tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"]});
+      }
+      if(this.combustiblesMostrar[3] && this.datosConsulta[n]["precio_gasolina_98"] != 0){
+        precios.push({ tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"]});
       }
 
+      this.arrayTarjetas.push(
+        {
+          marca: this.datosConsulta[n]["rotulo"],
+          // precios: [
+          //               { tipo: "Diesel",       precio:  this.datosConsulta[n]["precio_diesel"] },
+          //               { tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"] },
+          //               { tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"]},
+          //               { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"]},
+          //             ]
+          precios: precios
+        }
 
-    );
+
+      );
   }
+
+  }
+
 
 });
 
@@ -91,6 +123,28 @@ ubicacionABuscar(Item_busqueda: string) {
 
 
 
+
+}
+
+combistiblesMostrar(combustibles:any){
+  console.log(combustibles);
+
+
+    this.combustiblesMostrar [0] = combustibles['diesel'];
+    this.combustiblesMostrar [1] = combustibles['dieselPlus'];
+    this.combustiblesMostrar [2] = combustibles['gasolina95'];
+    this.combustiblesMostrar [3] = combustibles['gasolina98'];
+
+    if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
+}
+
+rangoMostrar(rango:any){
+  console.log("rango= "+rango);
+  // this.precioMin = rango[0];
+  // this.precioMax = rango[1];
+
+  this.rangosPrecio = rango;
+  if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
 
 
 }

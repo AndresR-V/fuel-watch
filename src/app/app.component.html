@@ -1,5 +1,8 @@
 <h2>{{ title }}</h2>
-<app-filters></app-filters>
+<app-filters
+  (combustiblesMostrar)="combistiblesMostrar($event)"
+  (rangosPrecio)="rangoMostrar($event)"
+></app-filters>
 <app-search-bar (searchValue)="ubicacionABuscar($event)"></app-search-bar>
 
 <div>
