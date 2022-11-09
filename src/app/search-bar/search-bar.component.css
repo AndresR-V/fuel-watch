@@ -1,0 +1,31 @@
+
+.formSearchBar{
+  display:flex;
+  justify-content: center;
+
+}
+
+.search-container{
+margin-top:40px;
+  width: 70%;
+
+}
+.search-container input{
+  margin-right:5px;
+  border-radius: 10px;
+  border:none;
+  outline: 2px solid #f8f8f8;
+  color:#555;
+}
+
+.search-container button{
+  width:100px;
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  border-top-right-radius:10px;
+  border-bottom-right-radius:10px;
+  background-color:#ea8254;
+  border:none;
+  outline: 2px solid #f8f8f8;
+  color:#f2f2f2;
+}

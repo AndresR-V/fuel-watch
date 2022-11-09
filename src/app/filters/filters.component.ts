@@ -68,8 +68,8 @@ export class FiltersComponent implements OnInit {
   actualminValue: number=0;
   actualmaxValue: number=0;
 
-  minValue: number = 1.85;
-  maxValue: number = 2.10;
+  minValue: number = 1.80;
+  maxValue: number = 2.30;
 
   private rangos =[
     [this.minValue, this.maxValue],

@@ -129,13 +129,22 @@ input[type="range"]:active:-webkit-slider-thumb{
   justify-content: space-evenly;
 
   padding: 1rem 3rem;
-  background-color:rgb(12, 50, 83);
+  background-color:#333f50;
   color: #f2f2f2;
+
+}
+
+.form-filter h5{
+ font-size:1rem;
+ margin-left: -23px;
 
 }
 
 .container-checkbox{
   width:40%;
+  height:40%;
+  display:flex;
+  flex-flow:column wrap;
 }
 
 .container-slider{
@@ -160,3 +169,4 @@ ngx-slider{
   width:93%;
   margin: 1rem 1rem;
 }
+
