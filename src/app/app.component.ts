@@ -3,10 +3,10 @@ import { CarburantesService } from'./services/carburantes.service';
 import { CrudService } from './services/crud.service';
 
 interface Tarjeta{
-  marca:string;
+  rotulo:string;
   precios:any[];
-  numero?:number;
 }
+
 
 
 
@@ -15,6 +15,8 @@ interface Tarjeta{
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent implements OnInit {
   title = 'Fuel-Watch';
   apiData : any;
@@ -23,13 +25,14 @@ export class AppComponent implements OnInit {
   public UbicacionABuscar:string = "";
   public datosConsulta:any;
 
+  public itemBusqueda:string ="";
+  public combustiblesMostrar:boolean[]=[true,true,true,true]
 
-  private itemBusqueda:string ="";
-  private combustiblesMostrar:boolean[]=[true,true,true,true]
-
-  private rangosPrecio = [[ 0.0,  0.0],[ 0.0,  0.0],[ 0.0,  0.0],[ 0.0,  0.0]];
-  // private precioMin:Number = 0.0;
-  // private precioMax:Number = 0.0;
+  public rangosPrecio = {
+    target: 0,
+    min: 0,
+    max:0,
+  };
 
 
 
@@ -49,46 +52,54 @@ ubicacionABuscar(Item_busqueda: string) {
   this.UbicacionABuscar).subscribe(result => {
   this.datosConsulta =result;
   console.log(this.datosConsulta);
+
+  // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
+
   for (const n of Object.keys(this.datosConsulta)) {
 
     // console.log(this.datosConsulta[n]);
 
+    let target = "";
+
+    switch (this.rangosPrecio.target){
+      case 0:
+        target = "precio_diesel";
+        break;
+      case 1:
+        target = "precio_diesel_extra";
+        break;
+      case 2:
+        target = "precio_gasolina_95";
+        break;
+      case 3:
+        target = "precio_gasolina_98";
+        break;
+    }
     // compropbamos rango precios:
+
+    console.log(" [target] ="+ target)
+    console.log(" this.rangosPrecio.min ="+ this.rangosPrecio.min)
+    console.log(" this.rangosPrecio.max ="+ this.rangosPrecio.max)
+
     if(
-      (this.datosConsulta[n]["precio_diesel"] >= this.rangosPrecio[0][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[0][1]) ||
-      (this.datosConsulta[n]["precio_diesel_extra"] >= this.rangosPrecio[1][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[1][1]) ||
-      (this.datosConsulta[n]["precio_gasolina_95"] >= this.rangosPrecio[2][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[2][1]) ||
-      (this.datosConsulta[n]["precio_gasolina_99"] >= this.rangosPrecio[3][0] &&  this.datosConsulta[n]["precio_diesel"]<= this.rangosPrecio[3][1])
+      this.datosConsulta[n][target] != 0 &&
+      this.datosConsulta[n][target] >= this.rangosPrecio.min &&
+      this.datosConsulta[n][target] <= this.rangosPrecio.max
       ){
-
-      let precios = [];
-
-      console.log("this.combustiblesMostrar : "+this.combustiblesMostrar)
-
-      if(this.combustiblesMostrar[0] && this.datosConsulta[n]["precio_diesel"] != 0){
-        precios.push({ tipo: "Diesel", precio:  this.datosConsulta[n]["precio_diesel"] });
-      }
-      if(this.combustiblesMostrar[1] && this.datosConsulta[n]["precio_diesel_extra"] != 0){
-        precios.push({ tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"] });
-      }
-      if(this.combustiblesMostrar[2] && this.datosConsulta[n]["precio_gasolina_95"] != 0){
-        precios.push({ tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"]});
-      }
-      if(this.combustiblesMostrar[3] && this.datosConsulta[n]["precio_gasolina_98"] != 0){
-        precios.push({ tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"]});
-      }
+      console.log(" this.datosConsulta[n][target] ="+ this.datosConsulta[n][target])
+      console.log("CUMPLE REQUISITOS ")
 
       this.arrayTarjetas.push(
         {
-          marca: this.datosConsulta[n]["rotulo"],
-          // precios: [
-          //               { tipo: "Diesel",       precio:  this.datosConsulta[n]["precio_diesel"] },
-          //               { tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"] },
-          //               { tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"]},
-          //               { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"]},
-          //             ]
-          precios: precios
+          rotulo: this.datosConsulta[n]["rotulo"],
+          precios: [
+                        { tipo: "Diesel",       precio:  this.datosConsulta[n]["precio_diesel"],       show:this.combustiblesMostrar[0] },
+                        { tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"], show:this.combustiblesMostrar[1]  },
+                        { tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"],  show:this.combustiblesMostrar[2] },
+                        { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"],  show:this.combustiblesMostrar[3] },
+                      ]
+
         }
 
 
@@ -101,34 +112,10 @@ ubicacionABuscar(Item_busqueda: string) {
 });
 
 
-
-  //   for (const item of this.datosConsulta){
-
-
-  //     this.arrayTarjetas.push(
-  //       {
-  //         marca: item["Rótulo"],
-  //         precios: [
-  //             { tipo: "Diesel",       precio:  item["Precio Gasoleo A"] },
-  //             { tipo: "Diesel +",     precio:  item["Precio Gasoleo Premium"] },
-  //             { tipo: "Gasolina 95",  precio:  item["Precio Gasolina 95 E5"]},
-  //             { tipo: "Gasolina 98",  precio:  item["Precio Gasolina 98 E5"]},
-  //           ]
-  //        }
-
-  //     );
-  //  }
-
-
-
-
-
-
 }
 
-combistiblesMostrar(combustibles:any){
+items_to_Show(combustibles:any){
   console.log(combustibles);
-
 
     this.combustiblesMostrar [0] = combustibles['diesel'];
     this.combustiblesMostrar [1] = combustibles['dieselPlus'];
@@ -139,11 +126,13 @@ combistiblesMostrar(combustibles:any){
 }
 
 rangoMostrar(rango:any){
-  console.log("rango= "+rango);
-  // this.precioMin = rango[0];
-  // this.precioMax = rango[1];
 
-  this.rangosPrecio = rango;
+
+  this.rangosPrecio.target = rango.target ? rango.target : 0;
+  this.rangosPrecio.min = rango.min;
+  this.rangosPrecio.max = rango.max;
+  console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
+
   if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
 
 
@@ -151,85 +140,7 @@ rangoMostrar(rango:any){
 
 ngOnInit():void {
 
-
-
-
 }
 
-  // constructor(service: CarburantesService){
-
-  //   this.apiData = service.getData().subscribe( bruto => {
-  //     this.datosCarburantes =  bruto.ListaEESSPrecio;
-  //     for (const item of this.datosCarburantes){
-  //       if (item.Localidad == "VIGO") {
-  //         this.arrayTarjetas.push(
-  //               {
-  //                       marca: item["Rótulo"],
-  //                       precios: [
-  //                           { tipo: "Diesel",       precio:  item["Precio Gasoleo A"] },
-  //                           { tipo: "Diesel +",     precio:  item["Precio Gasoleo Premium"] },
-  //                           { tipo: "Gasolina 95",  precio:  item["Precio Gasolina 95 E5"]},
-  //                           { tipo: "Gasolina 98",  precio:  item["Precio Gasolina 98 E5"]},
-  //                         ]
-  //                     }
-
-  //         )
-  //           }
-  //         }
-  //         });
-
-  // }
-
-  // ngOnInit():void {
-
-
-    // for (const item of this.datosCarburantes){
-
-      // if (item.Localidad == "VIGO") {
-      //   this.arrayTarjetas.push(
-      //     {
-      //       marca: item["Rótulo"],
-      //       precios: [
-      //           { tipo: "Diesel",       precio:  item["Precio Gasoleo A"] },
-      //           { tipo: "Diesel +",     precio:  item["Precio Gasoleo Premium"] },
-      //           { tipo: "Gasolina 95",  precio:  item["Precio Gasolina 95 E5"]},
-      //           { tipo: "Gasolina 98",  precio:  item["Precio Gasolina 98 E5"]},
-      //         ]
-      //      }
-
-      //   );
-      // }
-
-      //   // console.log(datos[i]["Rótulo"]);
-      //   // console.log(datos[i]["Dirección"]);
-      //   // console.log(datos[i]["Precio Gasoleo A"]);
-      //   // console.log(datos[i]["Precio Gasoleo Premium"]);
-      //   // console.log(datos[i]["Precio Gasolina 95 E5"]);
-      //   // console.log(datos[i]["Precio Gasolina 98 E5"]);
-
-
-    // this.arrayTarjetas = [
-    //   {
-    //     marca: this.datosCarburantes,
-    //     precios: [
-    //         { tipo: "Diesel", precio: 1.35 },
-    //         { tipo: "Diesel +", precio: 1.35 },
-    //         { tipo: "Gasolina 95", precio: 1.45},
-    //         { tipo: "Gasolina 98", precio: 1.50},
-    //       ]
-    //    },
-    //    {
-    //     marca: 'Shell',
-    //     precios: [
-    //         { tipo: "Diesel", precio: 1.91 },
-    //         { tipo: "Diesel +", precio: 1.99 },
-    //         { tipo: "Gasolina 95", precio: 1.80},
-    //         { tipo: "Gasolina 98", precio: 1.85},
-    //       ]
-    //    }
-    // ];
-
-
-  // }// end OnInit
 
 }

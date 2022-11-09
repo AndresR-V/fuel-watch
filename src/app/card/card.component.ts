@@ -11,9 +11,7 @@ export class CardComponent implements OnInit {
 
 
   // para conectar con otros componentes
-  @Input() dataEntrante:any;
-
-  constructor() { }
+  @Input() dataApi:any;
 
   ngOnInit(): void {
 

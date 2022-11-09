@@ -6,29 +6,33 @@
         <i
           class="fa-4x"
           [ngClass]="{
-            'text-danger': dataEntrante.marca == 'REPSOL',
-            'text-warning': dataEntrante.marca == 'SHELL',
-            'text-success': dataEntrante.marca == 'BP',
-            'text-orange': dataEntrante.marca == 'GALP',
-            'text-mint': dataEntrante.marca.includes('ALCAMPO')
+            'text-danger': dataApi.rotulo == 'REPSOL',
+            'text-warning': dataApi.rotulo == 'SHELL',
+            'text-success': dataApi.rotulo == 'BP',
+            'text-orange': dataApi.rotulo == 'GALP',
+            'text-mint': dataApi.rotulo.includes('ALCAMPO')
           }"
           ><fa-icon [icon]="faGasPump"></fa-icon
         ></i>
-
-        <h5>{{ dataEntrante.marca }}</h5>
+        <h5>{{ dataApi.rotulo }}</h5>
       </div>
       <div class="text-end">
         <ul>
-          <li *ngFor="let precio of dataEntrante.precios">
-            <span>{{ precio.tipo }} </span> :
-            <strong
-              [ngClass]="{
-                'text-danger': precio.precio > 1.9,
-                'text-success': precio.precio < 1.4
-              }"
-              >{{ precio.precio }}
-            </strong>
-          </li>
+          <!-- <li *ngFor="let precio of dataApi.precios"> -->
+          <ng-container *ngFor="let precio of dataApi.precios">
+            <li *ngIf="precio.precio != 0">
+              <!-- evaluamos si el tipo de combiustible se debe mostrar -->
+
+              <span>{{ precio.tipo }} </span> :
+              <strong
+                [ngClass]="{
+                  'text-danger': precio.precio > 1.9,
+                  'text-success': precio.precio < 1.4
+                }"
+                >{{ precio.precio }}
+              </strong>
+            </li>
+          </ng-container>
         </ul>
       </div>
     </div>

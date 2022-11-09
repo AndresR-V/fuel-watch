@@ -45,7 +45,7 @@ export class FiltersComponent implements OnInit {
     gasolina98:true
   };
 
-  private combustibleSeleccionado:number=0;
+
 
   public variable: string="";
 
@@ -68,15 +68,16 @@ export class FiltersComponent implements OnInit {
   actualminValue: number=0;
   actualmaxValue: number=0;
 
+  // estos datos se sacan de la media de precios actual
   minValue: number = 1.80;
   maxValue: number = 2.30;
+  rangeTarget:string= "";
 
-  private rangos =[
-    [this.minValue, this.maxValue],
-    [this.minValue, this.maxValue],
-    [this.minValue, this.maxValue],
-    [this.minValue, this.maxValue]
-  ]
+  private rangos = {
+    target: this.rangeTarget,
+    min: this.minValue,
+    max: this.maxValue,
+  }
 
 
   options: Options = {
@@ -84,6 +85,7 @@ export class FiltersComponent implements OnInit {
     ceil: 2.30,
     step:0.01,
     translate: (value: number, label: LabelType): string => {
+      value;
       switch (label) {
         case LabelType.Low:
           this.actualminValue = value;
@@ -108,14 +110,12 @@ export class FiltersComponent implements OnInit {
 
 
   constructor() {
-
-
-
   }
 
 
   ngOnInit(): void {
-
+    // cuando se inicia la aplicacion recoge los rangos del slider
+    this.rangosPrecio.emit(this.rangos);
   }
 
 
@@ -148,19 +148,17 @@ export class FiltersComponent implements OnInit {
 
   readSelect(event:any){
 
-    this.combustibleSeleccionado = event.target.selectedIndex;
-    console.log("combustibleSeleccionado= "+this.combustibleSeleccionado);
-    this.rangos =[
-      [this.minValue, this.maxValue],
-      [this.minValue, this.maxValue],
-      [this.minValue, this.maxValue],
-      [this.minValue, this.maxValue]]
+    this.rangos.target = event.target.selectedIndex;
+    this.rangos.min= this.minValue+0.01;
+    this.rangos.max= this.maxValue+0.01;
+    this.readSlider(event);
+
   }
 
   readSlider(event:any){
 
-    this.rangos[this.combustibleSeleccionado] = [this.actualminValue , this.actualmaxValue];
-
+    this.rangos.min= this.actualminValue;
+    this.rangos.max= this.actualmaxValue;
     console.log(this.rangos);
     this.rangosPrecio.emit(this.rangos);
   }

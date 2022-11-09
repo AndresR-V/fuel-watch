@@ -5,7 +5,7 @@
   </figure>
 </div>
 <app-filters
-  (combustiblesMostrar)="combistiblesMostrar($event)"
+  (combustiblesMostrar)="items_to_Show($event)"
   (rangosPrecio)="rangoMostrar($event)"
 ></app-filters>
 <app-search-bar (searchValue)="ubicacionABuscar($event)"></app-search-bar>
@@ -14,7 +14,7 @@
   <div class="container-fluid container-main">
     <app-card
       class="card"
-      [dataEntrante]="card"
+      [dataApi]="card"
       *ngFor="let card of arrayTarjetas"
     ></app-card>
   </div>
