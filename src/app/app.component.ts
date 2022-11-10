@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   public arrayTarjetas: Tarjeta[] = [];
   public UbicacionABuscar:string = "";
   public datosConsulta:any;
+  public estadisticas:any;
 
   public itemBusqueda:string ="";
   public combustiblesMostrar:boolean[]=[true,true,true,true]
@@ -48,10 +49,21 @@ ubicacionABuscar(Item_busqueda: string) {
   console.log(Item_busqueda);
   this.UbicacionABuscar = Item_busqueda.toUpperCase();
   console.log("Buscando...");
+
+
+  // obtiene datos de estadisticas
+  this.crudService.EstadisticasDeUbicacion(
+    this.UbicacionABuscar).subscribe(result => {
+    this.estadisticas = result;});
+    console.log("estadisticas: "+ this.estadisticas);
+
+  // busca los datos de servicestations
   this.crudService.BuscarPorUbicacion(
   this.UbicacionABuscar).subscribe(result => {
   this.datosConsulta =result;
-  console.log(this.datosConsulta);
+
+
+  // console.log(this.datosConsulta);
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
