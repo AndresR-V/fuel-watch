@@ -14,13 +14,14 @@
           }"
           ><fa-icon [icon]="faGasPump"></fa-icon
         ></i>
+
         <h5>{{ dataApi.rotulo }}</h5>
       </div>
       <div class="text-end">
         <ul>
           <!-- <li *ngFor="let precio of dataApi.precios"> -->
-          <ng-container *ngFor="let precio of dataApi.precios">
-            <li *ngIf="precio.precio != 0">
+          <ng-container *ngFor="let precio of dataApi.precios; index as i">
+            <li *ngIf="precio.show && precio.precio > 0">
               <!-- evaluamos si el tipo de combiustible se debe mostrar -->
 
               <span>{{ precio.tipo }} </span> :

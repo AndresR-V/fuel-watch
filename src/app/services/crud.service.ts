@@ -18,12 +18,22 @@ constructor( private http:HttpClient) {
     'Access-Control-Allow-Origin': '/'});
  }
 
+ /**
+  * Obtiene los datos de la tabla servicestations donde la localidad es igual al parámetro
+  *
+  * @param ubicacion
+  * @returns array con resultados
+  */
  BuscarPorUbicacion(ubicacion:string):Observable<any>{
-  // return this.http.get(this.API+"?buscar=1&target="+ ubicacion)
   let url = this.API+"?buscar=1&target="+ ubicacion;
   return this.http.get(url);
+
 }
 
+EstadisticasDeUbicacion(ubicacion:string):Observable<any>{
+  let url = this.API+"?estadisticas=1&target="+ ubicacion;
+  return this.http.get(url);
+}
 
 
 }
