@@ -1,0 +1,30 @@
+<div class="estadisticas-container">
+  <table class="table" *ngIf="stats.diesel_min">
+    <tr>
+      <th>mínimo</th>
+      <th>máximo</th>
+      <th>media</th>
+    </tr>
+
+    <tr>
+      <td>{{ stats.diesel_min }} €/litro</td>
+      <td>{{ stats.diesel_max }} €/litro</td>
+      <td>{{ stats.diesel_avg }} €/litro</td>
+    </tr>
+    <tr>
+      <td>{{ stats.diesel_extra_min }} €/litro</td>
+      <td>{{ stats.diesel_extra_max }} €/litro</td>
+      <td>{{ stats.diesel_extra_avg }} €/litro</td>
+    </tr>
+    <tr>
+      <td>{{ stats.gasolina95_min }} €/litro</td>
+      <td>{{ stats.gasolina95_max }} €/litro</td>
+      <td>{{ stats.gasolina95_avg }} €/litro</td>
+    </tr>
+    <tr>
+      <td>{{ stats.gasolina98_min }} €/litro</td>
+      <td>{{ stats.gasolina98_max }} €/litro</td>
+      <td>{{ stats.gasolina98_avg }} €/litro</td>
+    </tr>
+  </table>
+</div>

@@ -25,7 +25,7 @@ constructor( private http:HttpClient) {
   * @returns array con resultados
   */
  BuscarPorUbicacion(ubicacion:string):Observable<any>{
-  let url = this.API+"?buscar=1&target="+ ubicacion;
+  let url = this.API+"?buscar=1&estadisticas&target="+ ubicacion;
   return this.http.get(url);
 
 }

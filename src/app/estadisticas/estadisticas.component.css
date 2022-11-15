@@ -1,0 +1,15 @@
+.estadisticas-container{
+
+  font-size: 12px;
+  display:flex;
+  justify-content: center;
+
+}
+
+.estadisticas-container table{
+  max-width: 60%;
+}
+
+.estadisticas-container table, .estadisticas-container tr,.estadisticas-container td{
+  text-align: center;
+}
