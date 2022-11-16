@@ -18,7 +18,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule  } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CardComponent,
     SearchBarComponent,
     FiltersComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgxSliderModule,
     MatExpansionModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatCheckboxModule,
 
   ],
   providers: [CarburantesService],

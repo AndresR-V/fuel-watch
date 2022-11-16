@@ -18,10 +18,10 @@ ul, li {
 }
 
 .text-orange{
-  color: orange;
+  color: #ea8254;
 }
-.text-mint{
-  color:mediumspringgreen;
+.text-green{
+  color:#22c4a5;
 }
 
 .card{
@@ -39,8 +39,80 @@ ul, li {
 }
 
 .logo{
-  width:120px;
-  height:120px;
-  margin:20px;
+  width:150px;
+  height:150px;
+  margin: 0 20px;
   align-items:center;
+}
+
+.precios{
+  margin-top:30px;
+}
+
+.historico{
+  margin-top: 20px;
+  color:rgb(77, 77, 77);
+}
+
+
+
+.mat-card-header{
+  padding:0 ;
+  margin:0;
+  color:rgb(53, 52, 52);
+
+
+}
+.mat-card-title-group {
+  display:flex;
+  margin-left: 20px;
+  justify-content:flex-start;
+  width:100%;
+}
+
+.mat-card-title p , .mat-card-subtitle p{
+  padding:0 ;
+  margin:0;
+  color:rgb(53, 52, 52);
+
+
+
+}
+
+
+ .mat-card{
+  padding:20 ;
+  min-width: 400px;
+  width: 23vw;
+  border:none;
+  background-color:#fff;
+  color:rgb(53, 52, 52);
+}
+
+.mat-card-content{
+  padding:5px ;
+}
+
+
+.card-main{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:40px;
+  margin-top:-20px;
+}
+
+.card-img{
+  width:40%;
+}
+
+.card-img img{
+  width:150px;
+  height:150px;
+}
+
+.card-prices{
+  width:60%;
+  align-self: center;
+  font-size:1.2rem;
+  text-align:right;
 }

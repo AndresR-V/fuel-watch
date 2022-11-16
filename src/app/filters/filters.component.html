@@ -1,49 +1,46 @@
-<form class="form-filter" ng-change="capturaFiltro()" [formGroup]="filtersForm">
+<form
+  id="formulario "
+  class="form-filter"
+  ng-change="capturaFiltro()"
+  [formGroup]="filtersForm"
+>
   <div class="container-checkbox" (change)="readCheck($event)">
     <h5>Mostrar precios de :</h5>
-    <div class="form-check">
-      <input
-        type="checkbox"
-        formConrtrolName="dieselEnable"
-        class="form-check-input"
-        id="dieselEnable"
-        checked
-      />
+    <mat-checkbox
+      type="checkbox"
+      formConrtrolName="dieselEnable"
+      id="dieselEnable"
+      checked
+    >
       <label class="form-check-label" for="check1">Diesel</label>
-    </div>
+    </mat-checkbox>
 
-    <div class="form-check">
-      <input
-        type="checkbox"
-        formConrtrolName="dieselPlusEnable"
-        class="form-check-input"
-        id="dieselPlusEnable"
-        checked
-      />
+    <mat-checkbox
+      type="checkbox"
+      formConrtrolName="dieselPlusEnable"
+      id="dieselPlusEnable"
+      checked
+    >
       <label class="form-check-label" for="check1">Diesel+</label>
-    </div>
+    </mat-checkbox>
 
-    <div class="form-check">
-      <input
-        type="checkbox"
-        formConrtrolName="gas95Enable"
-        class="form-check-input"
-        id="gas95Enable"
-        checked
-      />
+    <mat-checkbox
+      type="checkbox"
+      formConrtrolName="gas95Enable"
+      id="gas95Enable"
+      checked
+    >
       <label class="form-check-label" for="check1">Gasolina 95</label>
-    </div>
+    </mat-checkbox>
 
-    <div class="form-check">
-      <input
-        type="checkbox"
-        formConrtrolName="gas98Enable"
-        class="form-check-input"
-        id="gas98Enable"
-        checked
-      />
+    <mat-checkbox
+      type="checkbox"
+      formConrtrolName="gas98Enable"
+      id="gas98Enable"
+      checked
+    >
       <label class="form-check-label" for="check1">Gasolina 98</label>
-    </div>
+    </mat-checkbox>
   </div>
 
   <div class="container-slider">

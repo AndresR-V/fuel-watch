@@ -1,26 +1,34 @@
-<mat-card class="mat-card">
-  <mat-card-title-group class="mat-card-header">
-    <mat-card-title> {{ dataApi.rotulo }}</mat-card-title>
-    <mat-card-subtitle>
-      <p>{{ dataApi.direccion }}</p>
-      <p>{{ dataApi.horario }}</p>
-    </mat-card-subtitle>
-  </mat-card-title-group>
+<!-- <div class=""col-xl-3 col-sm-6 col-12 mb-4""> -->
 
-  <button class="btn btn-info">#</button>
-
-  <mat-card-content>
-    <div class="card-main">
-      <div class="card-img">
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between px-md-1">
+      <div class="align-self-center">
+        <!-- <ng-container *ngIf="as"> -->
         <img
-          mat-card-sm-image
+          class="logo"
           src="../../assets/images/logos/{{ dataApi.rotulo }}.svg"
           onerror="this.src = '../../assets/images/logos/GAS.svg'"
           alt="Logo empresa EESS"
         />
+        <i
+          class="fa-4x"
+          [ngClass]="{
+            'text-danger': dataApi.rotulo == 'REPSOL',
+            'text-warning': dataApi.rotulo == 'SHELL',
+            'text-success': dataApi.rotulo == 'BP',
+            'text-orange': dataApi.rotulo == 'GALP',
+            'text-mint': dataApi.rotulo.includes('ALCAMPO')
+          }"
+        >
+          <!-- <fa-icon [icon]="faGasPump"></fa-icon> -->
+        </i>
+        <!-- </ng-container> -->
+        <h5>{{ dataApi.rotulo }}</h5>
       </div>
-      <div class="card-prices">
+      <div class="text-end">
         <ul>
+          <!-- <li *ngFor="let precio of dataApi.precios"> -->
           <ng-container *ngFor="let precio of dataApi.precios; index as i">
             <li *ngIf="precio.show && precio.precio > 0">
               <!-- evaluamos si el tipo de combiustible se debe mostrar -->
@@ -30,8 +38,8 @@
               <ng-container *ngIf="precio.tipo == 'Diesel'">
                 <strong
                   [ngClass]="{
-                    'text-orange': precio.precio > stats.diesel_max - 0.05,
-                    'text-green': precio.precio < stats.diesel_min + 0.05
+                    'text-danger': precio.precio > stats.diesel_max - 0.05,
+                    'text-success': precio.precio < stats.diesel_min + 0.05
                   }"
                   >{{ precio.precio }} </strong
                 >€/l
@@ -40,9 +48,10 @@
               <ng-container *ngIf="precio.tipo == 'Diesel +'">
                 <strong
                   [ngClass]="{
-                    'text-orange':
+                    'text-danger':
                       precio.precio > stats.diesel_extra_max - 0.05,
-                    'text-green': precio.precio < stats.diesel_extra_min + 0.05
+                    'text-success':
+                      precio.precio < stats.diesel_extra_min + 0.05
                   }"
                   >{{ precio.precio }} </strong
                 >€/l
@@ -51,8 +60,8 @@
               <ng-container *ngIf="precio.tipo == 'Gasolina 95'">
                 <strong
                   [ngClass]="{
-                    'text-orange': precio.precio > stats.gasolina95_max - 0.0,
-                    'text-green': precio.precio < stats.gasolina95_min + 0.05
+                    'text-danger': precio.precio > stats.gasolina95_max - 0.0,
+                    'text-success': precio.precio < stats.gasolina95_min + 0.05
                   }"
                   >{{ precio.precio }} </strong
                 >€/l
@@ -61,8 +70,8 @@
               <ng-container *ngIf="precio.tipo == 'Gasolina 98'">
                 <strong
                   [ngClass]="{
-                    'text-orange': precio.precio > stats.gasolina98_max - 0.05,
-                    'text-green': precio.precio < stats.gasolina98_min + 0.05
+                    'text-danger': precio.precio > stats.gasolina98_max - 0.05,
+                    'text-success': precio.precio < stats.gasolina98_min + 0.05
                   }"
                   >{{ precio.precio }} </strong
                 >€/l
@@ -72,14 +81,16 @@
         </ul>
       </div>
     </div>
-
+    <div>{{ dataApi.horario }}</div>
+    <div>{{ dataApi.direccion }}</div>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <p>Histórico</p>
+          <h2>{{ dataApi.id }}</h2>
         </mat-panel-title>
       </mat-expansion-panel-header>
       {{ dataApi.id }}
     </mat-expansion-panel>
-  </mat-card-content>
-</mat-card>
+  </div>
+  <!-- </div> -->
+</div>
