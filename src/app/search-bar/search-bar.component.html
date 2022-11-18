@@ -14,15 +14,14 @@
       value="{{ ubicacion }}"
     />
     <div class="input-group-append">
-      <button
+      <input
         id="buscar"
         class="btn btn-primary"
-        type="button"
+        type="submit"
         (click)="getUbicacion(datoABuscar.value)"
         name="buscar"
-      >
-        Buscar
-      </button>
+        value="Buscar"
+      />
     </div>
   </div>
 </form>

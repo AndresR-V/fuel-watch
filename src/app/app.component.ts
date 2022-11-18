@@ -96,8 +96,19 @@ ubicacionABuscar(Item_busqueda: string) {
   // datos estadciones de servicio
   this.datosConsulta = result['eess'];
 
+  this.refresh_cards();
 
-  // console.log(this.datosConsulta);
+
+
+
+});
+
+
+}
+
+
+
+public refresh_cards(){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
@@ -153,11 +164,6 @@ ubicacionABuscar(Item_busqueda: string) {
   }
 
   }
-
-
-});
-
-
 }
 
 items_to_Show(combustibles:any){
@@ -169,8 +175,7 @@ items_to_Show(combustibles:any){
     this.combustiblesMostrar [2] = combustibles['gasolina95'];
     this.combustiblesMostrar [3] = combustibles['gasolina98'];
 
-    if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
-
+    if (this.itemBusqueda!="")  this.refresh_cards();
     console.log("combustiblesMostrar: "+this.combustiblesMostrar)
 }
 
@@ -182,7 +187,7 @@ rangoMostrar(rango:any){
   this.rangosPrecio.max = rango.max;
   // console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
 
-  if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
+  if (this.itemBusqueda!="") this.refresh_cards();
 
 
 }

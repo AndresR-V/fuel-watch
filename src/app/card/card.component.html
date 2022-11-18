@@ -1,6 +1,12 @@
 <!-- <div class="card"> -->
-<h5 class="rotulo">{{ dataApi.rotulo }}</h5>
 
+<div class="card-title">
+  <h5 class="rotulo">{{ dataApi.rotulo }}</h5>
+
+  <i class="fa-2x text-secondary fa-" (click)="anclar($event)">
+    <fa-icon [icon]="candado"></fa-icon
+  ></i>
+</div>
 <div class="card-body">
   <figure>
     <img
@@ -61,8 +67,8 @@
   </div>
 </div>
 
-<h6 class="direccion">{{ dataApi.horario }}</h6>
-<p class="horario">{{ dataApi.direccion }}</p>
+<h6 class="direccion">{{ dataApi.direccion }}</h6>
+<p class="horario">{{ dataApi.horario }}</p>
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>

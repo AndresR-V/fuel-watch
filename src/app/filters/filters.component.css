@@ -62,6 +62,7 @@
 .form-check{
   padding: 1px;
   margin:0;
+  font-size: rem;
 
 }
 
@@ -69,4 +70,10 @@ ngx-slider{
   width:93%;
   margin: 1rem 1rem;
 }
+/*
+.ngx-slider-selection {
 
+}
+.wrapper .ngx-slider{
+  background: rgb(255, 255, 0) !important;
+} */

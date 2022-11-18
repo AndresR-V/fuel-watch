@@ -19,84 +19,83 @@ background-color: var(--fondo-oscuro);
 
 }
 
-#header-container .logo{
-  max-width: 200px;
-
-}
-#header-container .logo img{
-  width: 100%;
-  height: auto;
-}
-
-#header-container .logo img{
-  width: 100%;
-  height: auto;
-}
 
 
 #header-container app-filters{
-  background-color: red;
   width:80%;
+  padding-left: 250px;
 
 }
 
 
 
-#header-container app-search-bar{
-  width: 100%;
-}
 
 /* contenedor para las estadísticas */
 #stats-container{
   width: 100vw;
   padding-bottom: 15px;
-  padding-top: 5px;
   background-color:#e8f0fe;
   color:#94989a;
   margin-bottom: 20px;
+  margin-top:-20px;
 
 }
 
+#main-container .logo{
+  max-width: 200px;
+  /* position: absolute; */
+  margin-top: -180px;
+  margin-left: -250px;
+  padding-top:23px;
+  padding-left:10px;
+  top:0;
+  left:0;
+  position:sticky;
+  z-index: 100;
+
+
+}
+#main-container .logo img{
+  width: 100%;
+  height: auto;
+
+
+}
+
+#main-container .logo img{
+  width: 100%;
+  height: auto;
+}
 
 /* contenedor donde se alojan las tarjetas */
-
-#card-container{
+#main-container{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content:space-evenly;
   gap:20px;
-  margin-top: 20px;
+
+
 
 }
 
-app-card{
+#main-container app-search-bar{
+  width: 100vw;
+  z-index:1;
+  position: sticky;
+  top: 0;
+  background-color:var(--fondo-oscuro);
+
+}
+
+#main-container  app-card{
   background-color:#fff;
   border-radius: 10px;
   padding:10px;
-  width: 500px;
+ width: 420px;
 
 }
-/*
-.container-logo{
-  width:100%;
-  height: 100px;
-  background-color: #333f50;
-  display:flex;
-  align-items: center;
-}
-
-.container-logo figure{
-  max-width: 300px;
-  margin-top: 15px;
-}
-
-.container-logo img{
-  width:100%;
-  height:auto;
-
-}
-.card-coniatner{
-  background-color: #
-} */

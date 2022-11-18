@@ -1,29 +1,30 @@
 <!-- <h2>{{ title }}</h2> -->
 
 <div id="header-container">
-  <figure class="logo">
-    <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
-  </figure>
-
   <app-filters
     (combustiblesMostrar)="items_to_Show($event)"
     (rangosPrecio)="rangoMostrar($event)"
   ></app-filters>
+</div>
+
+<div id="main-container" class="container-fluid">
+  <figure class="logo">
+    <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
+  </figure>
 
   <app-search-bar
     (searchValue)="ubicacionABuscar($event)"
     [ubicacion]="UbicacionABuscar"
   ></app-search-bar>
-</div>
 
-<div id="stats-container">
-  <app-estadisticas
-    class="stats"
-    [stats]="objetoEstadisticas"
-    [ubicacion]="UbicacionABuscar"
-  ></app-estadisticas>
-</div>
-<div id="card-container" class="container-fluid">
+  <div id="stats-container">
+    <app-estadisticas
+      class="stats"
+      [stats]="objetoEstadisticas"
+      [ubicacion]="UbicacionABuscar"
+    ></app-estadisticas>
+  </div>
+
   <app-card
     class="card"
     [dataApi]="card"
