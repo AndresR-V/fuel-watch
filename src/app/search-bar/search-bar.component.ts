@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl , Validators } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -8,11 +8,14 @@ import { Output, EventEmitter } from '@angular/core';
   styleUrls: ['./search-bar.component.css']
 })
 
+
 export class SearchBarComponent implements OnInit {
 
-  formSearchBar = new FormControl('',[]);
+  formSearchBar = new FormControl('',[Validators.required]);
 
+  @Input() ubicacion = "";
   @Output() searchValue = new EventEmitter<string>();
+
 
   constructor(){}
   ngOnInit(): void {}

@@ -14,7 +14,7 @@
   flex-direction: row;
   justify-content: space-evenly;
 
-  padding: 1rem 3rem;
+  padding: 1rem 1rem;
   background-color:var(--fondo-oscuro);
   color: var(--fondo-claro);
 
@@ -31,15 +31,17 @@
   min-width: 150px;
   height:40%;
   display:flex;
-  flex-flow:column nowrap;
+  flex-flow:row wrap;
+  gap:10px;
 
 }
 
 .container-slider{
-  width:60vw;
+  width:40vw;
+  height:80px;
   background-color:var(--fondo-oscuro);
   color: var(--fondo-claro);
-  padding: 1rem;
+  padding:0, 1rem;
   border-radius:10px;
 
 }
@@ -52,11 +54,11 @@
   padding-bottom: 7px;
   background-color:#b0bec5;
   margin: 0 0 2rem 1rem;
-}
 
-.container-slider ngx-slider-span{
 
 }
+
+
 .form-check{
   padding: 1px;
   margin:0;

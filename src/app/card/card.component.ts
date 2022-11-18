@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
   @Input() dataApi:any;
   @Input() stats:any;
 
+
   ngOnInit(): void {
 
   }

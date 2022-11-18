@@ -1,118 +1,85 @@
-@import '~font-awesome/css/font-awesome.css';
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300;400&family=Roboto:wght@500&display=swap');
-body {
-  background-color: #f5f7fa;
 
-  font-family: 'Montserrat','Lato', sans-serif'Roboto', sans-serif;
-
-  font-family: 'lato', 'mononoki NF', Montserrat, sans-serif;
-  font-size:24px;
-
+.max{
+  color: var(--acento-naranja);
+}
+.min{
+  color: var(--acento-verde);
 }
 
-.panel, .panel-group .panel-heading+.panel-collapse>.panel-body{
-  border: none;
-}
-ul, li {
-  list-style: none;
+img{
+  width: 100%;
+  height: auto;
 }
 
-.text-orange{
-  color: #ea8254;
-}
-.text-green{
-  color:#22c4a5;
-}
-
-.card{
-  /* background-color:blue; */
-  min-width: 400px;
-  width: 23vw;
-  border:none;
-
+.rotulo{
+  font-size: 2rem;
+  margin: 0;
+  padding-left: 1rem;
+  padding-top: 1rem;
 }
 .card-body{
-  width: 100%;
-  color:rgb(77, 77, 77);
-  /* display: flex; */
+  width:180px;
+  border-radius: 10px;
 
+  display:flex;
+  width:100%;
+
+  justify-content:space-between;
 }
 
-.logo{
-  width:150px;
-  height:150px;
-  margin: 0 20px;
-  align-items:center;
+
+figure {
+  align-self: center;
+  width:180px;
+  border-radius: 10px;
+  width:30%;
 }
 
 .precios{
-  margin-top:30px;
-}
-
-.historico{
-  margin-top: 20px;
-  color:rgb(77, 77, 77);
-}
-
-
-
-.mat-card-header{
-  padding:0 ;
-  margin:0;
-  color:rgb(53, 52, 52);
-
-
-}
-.mat-card-title-group {
-  display:flex;
-  margin-left: 20px;
-  justify-content:flex-start;
-  width:100%;
-}
-
-.mat-card-title p , .mat-card-subtitle p{
-  padding:0 ;
-  margin:0;
-  color:rgb(53, 52, 52);
-
-
-
-}
-
-
- .mat-card{
-  padding:20 ;
-  min-width: 400px;
-  width: 23vw;
-  border:none;
-  background-color:#fff;
-  color:rgb(53, 52, 52);
-}
-
-.mat-card-content{
-  padding:5px ;
-}
-
-
-.card-main{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:40px;
-  margin-top:-20px;
-}
-
-.card-img{
-  width:40%;
-}
-
-.card-img img{
-  width:150px;
-  height:150px;
-}
-
-.card-prices{
-  width:60%;
   align-self: center;
-  font-size:1.2rem;
+  width:180px;
+  border-radius: 10px;
+  width:70%;
   text-align:right;
+  padding-right: 15px;
+
+}
+
+.precios p{
+  margin:10px;
+  font-size:1.2rem;
+}
+
+.direccion{
+  margin:5px;
+  font-size: 15px;
+  padding-left: 1rem;
+
+}
+
+
+.horario{
+  margin:5px;
+  font-size: 12px;
+  padding-left: 1rem;
+  padding-top: 5px;
+}
+
+mat-expansion-panel{
+  margin-top:20px;
+  margin-bottom: 10px;
+  background-color:var(--fondo-oscuro);
+
+}
+mat-panel-title > *{
+  color:var(--fondo-claro);;
+  font-size:16px;
+}
+
+.grafica{
+  width:100%;
+  height:150px;
+  border-radius: 5px;
+  padding:1rem;
+  background-color:var(--fondo-claro);
 }

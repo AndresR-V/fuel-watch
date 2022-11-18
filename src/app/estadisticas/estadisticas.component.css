@@ -1,15 +1,44 @@
-.estadisticas-container{
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300;400&family=Roboto:wght@500&display=swap');
 
-  font-size: 12px;
-  display:flex;
-  justify-content: center;
+::ng-deep :root {
+  --acento-naranja: #ea8254;
+  --acento-verde  : #22c4a5;
+  --fondo-oscuro  : #333f50;
+  --acento-gris   : #b0bec5;
+  --fondo-claro   : #f2f2f2;
+
 
 }
 
+p{
+  font-size:10px;
+  margin-left: 5px;
+}
+
+.estadisticas-container{
+  font-size: 12px;
+  text-align: center;
+  margin: 5px,10px;
+
+}
+.estadisticas-container .separador{
+  width: 1px;
+  background-color: red;
+}
+div.row{
+  /* border: 1px groove #f7f7f7; */
+
+}
+div.col{
+  margin:0;
+  padding:0;
+
+}
+/*
 .estadisticas-container table{
   max-width: 60%;
 }
 
 .estadisticas-container table, .estadisticas-container tr,.estadisticas-container td{
   text-align: center;
-}
+} */

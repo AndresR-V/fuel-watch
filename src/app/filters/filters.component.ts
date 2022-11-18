@@ -102,7 +102,7 @@ export class FiltersComponent implements OnInit {
 
 
   capturaFiltro():void{
-    console.log('form ->'+ this.filtersForm.value)
+    // console.log('form ->'+ this.filtersForm.value)
     this.filtersForm.valueChanges.subscribe(vat =>{
       this.variable = "variable = ${val}"
   });
@@ -143,7 +143,10 @@ export class FiltersComponent implements OnInit {
         break
     }
 
+
     this.combustiblesMostrar.emit(this.showCombustibles);
+
+
   }
 
   readSelect(event:any){
@@ -159,7 +162,7 @@ export class FiltersComponent implements OnInit {
 
     this.rangos.min= this.actualminValue;
     this.rangos.max= this.actualmaxValue;
-    console.log(this.rangos);
+    // console.log(this.rangos);
     this.rangosPrecio.emit(this.rangos);
   }
 

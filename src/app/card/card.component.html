@@ -1,85 +1,76 @@
-<mat-card class="mat-card">
-  <mat-card-title-group class="mat-card-header">
-    <mat-card-title> {{ dataApi.rotulo }}</mat-card-title>
-    <mat-card-subtitle>
-      <p>{{ dataApi.direccion }}</p>
-      <p>{{ dataApi.horario }}</p>
-    </mat-card-subtitle>
-  </mat-card-title-group>
+<!-- <div class="card"> -->
+<h5 class="rotulo">{{ dataApi.rotulo }}</h5>
 
-  <button class="btn btn-info">#</button>
+<div class="card-body">
+  <figure>
+    <img
+      class="logo"
+      src="../../assets/images/logos/{{ dataApi.rotulo }}.svg"
+      onerror="this.src = '../../assets/images/logos/GAS.svg'"
+      alt="Logo empresa EESS"
+    />
+  </figure>
 
-  <mat-card-content>
-    <div class="card-main">
-      <div class="card-img">
-        <img
-          mat-card-sm-image
-          src="../../assets/images/logos/{{ dataApi.rotulo }}.svg"
-          onerror="this.src = '../../assets/images/logos/GAS.svg'"
-          alt="Logo empresa EESS"
-        />
-      </div>
-      <div class="card-prices">
-        <ul>
-          <ng-container *ngFor="let precio of dataApi.precios; index as i">
-            <li *ngIf="precio.show && precio.precio > 0">
-              <!-- evaluamos si el tipo de combiustible se debe mostrar -->
+  <div class="precios">
+    <ng-container *ngFor="let precio of dataApi.precios; index as i">
+      <p *ngIf="precio.show && precio.precio > 0">
+        <!-- evaluamos si el tipo de combiustible se debe mostrar -->
 
-              <span>{{ precio.tipo }} </span> :
+        <span>{{ precio.tipo }} </span> :
+        <ng-container *ngIf="precio.tipo == 'Diesel'">
+          <strong
+            [ngClass]="{
+              max: precio.precio > stats.diesel_max - 0.05,
+              min: precio.precio < stats.diesel_min + 0.05
+            }"
+            >{{ precio.precio }} </strong
+          >€/l
+        </ng-container>
 
-              <ng-container *ngIf="precio.tipo == 'Diesel'">
-                <strong
-                  [ngClass]="{
-                    'text-orange': precio.precio > stats.diesel_max - 0.05,
-                    'text-green': precio.precio < stats.diesel_min + 0.05
-                  }"
-                  >{{ precio.precio }} </strong
-                >€/l
-              </ng-container>
+        <ng-container *ngIf="precio.tipo == 'Diesel +'">
+          <strong
+            [ngClass]="{
+              max: precio.precio > stats.diesel_extra_max - 0.05,
+              min: precio.precio < stats.diesel_extra_min + 0.05
+            }"
+            >{{ precio.precio }} </strong
+          >€/l
+        </ng-container>
 
-              <ng-container *ngIf="precio.tipo == 'Diesel +'">
-                <strong
-                  [ngClass]="{
-                    'text-orange':
-                      precio.precio > stats.diesel_extra_max - 0.05,
-                    'text-green': precio.precio < stats.diesel_extra_min + 0.05
-                  }"
-                  >{{ precio.precio }} </strong
-                >€/l
-              </ng-container>
+        <ng-container *ngIf="precio.tipo == 'Gasolina 95'">
+          <strong
+            [ngClass]="{
+              max: precio.precio > stats.gasolina95_max - 0.0,
+              min: precio.precio < stats.gasolina95_min + 0.05
+            }"
+            >{{ precio.precio }} </strong
+          >€/l
+        </ng-container>
 
-              <ng-container *ngIf="precio.tipo == 'Gasolina 95'">
-                <strong
-                  [ngClass]="{
-                    'text-orange': precio.precio > stats.gasolina95_max - 0.0,
-                    'text-green': precio.precio < stats.gasolina95_min + 0.05
-                  }"
-                  >{{ precio.precio }} </strong
-                >€/l
-              </ng-container>
+        <ng-container *ngIf="precio.tipo == 'Gasolina 98'">
+          <strong
+            [ngClass]="{
+              max: precio.precio > stats.gasolina98_max - 0.05,
+              min: precio.precio < stats.gasolina98_min + 0.05
+            }"
+            >{{ precio.precio }} </strong
+          >€/l
+        </ng-container>
+      </p>
+    </ng-container>
+  </div>
+</div>
 
-              <ng-container *ngIf="precio.tipo == 'Gasolina 98'">
-                <strong
-                  [ngClass]="{
-                    'text-orange': precio.precio > stats.gasolina98_max - 0.05,
-                    'text-green': precio.precio < stats.gasolina98_min + 0.05
-                  }"
-                  >{{ precio.precio }} </strong
-                >€/l
-              </ng-container>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-    </div>
+<h6 class="direccion">{{ dataApi.horario }}</h6>
+<p class="horario">{{ dataApi.direccion }}</p>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <p>Histórico</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      {{ dataApi.id }}
-    </mat-expansion-panel>
-  </mat-card-content>
-</mat-card>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h6>Evolución precios</h6>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="grafica">{{ dataApi.id }}</div>
+</mat-expansion-panel>
+
+<!-- </div> -->

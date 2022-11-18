@@ -10,12 +10,19 @@
     (rangosPrecio)="rangoMostrar($event)"
   ></app-filters>
 
-  <app-search-bar (searchValue)="ubicacionABuscar($event)"></app-search-bar>
+  <app-search-bar
+    (searchValue)="ubicacionABuscar($event)"
+    [ubicacion]="UbicacionABuscar"
+  ></app-search-bar>
 </div>
 
-<div id="stats-container"></div>
-<app-estadisticas [stats]="objetoEstadisticas"></app-estadisticas>
-
+<div id="stats-container">
+  <app-estadisticas
+    class="stats"
+    [stats]="objetoEstadisticas"
+    [ubicacion]="UbicacionABuscar"
+  ></app-estadisticas>
+</div>
 <div id="card-container" class="container-fluid">
   <app-card
     class="card"

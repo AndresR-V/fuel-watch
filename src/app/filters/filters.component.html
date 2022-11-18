@@ -5,42 +5,43 @@
   [formGroup]="filtersForm"
 >
   <div class="container-checkbox" (change)="readCheck($event)">
-    <h5>Mostrar precios de :</h5>
-    <mat-checkbox
-      type="checkbox"
-      formConrtrolName="dieselEnable"
-      id="dieselEnable"
-      checked
+    <!-- <h5>Mostrar precios de :</h5> -->
+    <label class="form-check-label" for="check1">
+      <input
+        type="checkbox"
+        formConrtrolName="dieselEnable"
+        id="dieselEnable"
+        checked
+      />
+      Diesel</label
     >
-      <label class="form-check-label" for="check1">Diesel</label>
-    </mat-checkbox>
-
-    <mat-checkbox
-      type="checkbox"
-      formConrtrolName="dieselPlusEnable"
-      id="dieselPlusEnable"
-      checked
+    <label class="form-check-label" for="check1">
+      <input
+        type="checkbox"
+        formConrtrolName="dieselPlusEnable"
+        id="dieselPlusEnable"
+        checked
+      />
+      Diesel+</label
     >
-      <label class="form-check-label" for="check1">Diesel+</label>
-    </mat-checkbox>
-
-    <mat-checkbox
-      type="checkbox"
-      formConrtrolName="gas95Enable"
-      id="gas95Enable"
-      checked
+    <label class="form-check-label" for="check1">
+      <input
+        type="checkbox"
+        formConrtrolName="gas95Enable"
+        id="gas95Enable"
+        checked
+      />
+      Gasolina 95</label
     >
-      <label class="form-check-label" for="check1">Gasolina 95</label>
-    </mat-checkbox>
-
-    <mat-checkbox
-      type="checkbox"
-      formConrtrolName="gas98Enable"
-      id="gas98Enable"
-      checked
+    <label class="form-check-label" for="check1">
+      <input
+        type="checkbox"
+        formConrtrolName="gas98Enable"
+        id="gas98Enable"
+        checked
+      />
+      Gasolina 98</label
     >
-      <label class="form-check-label" for="check1">Gasolina 98</label>
-    </mat-checkbox>
   </div>
 
   <div class="container-slider">

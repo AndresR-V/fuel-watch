@@ -10,20 +10,6 @@ interface Tarjeta{
   horario?:string;
 }
 
-// interface Stats{
-//   diesel_min        :  number;
-//   diesel_max        :  number;
-//   diesel_avg        :  number;
-//   diesel_extra_min  :  number;
-//   diesel_extra_max  :  number;
-//   diesel_extra_avg  :  number;
-//   gasolina95_min    :  number;
-//   gasolina95_max    :  number;
-//   gasolina95_avg    :  number;
-//   gasolina98_min    :  number;
-//   gasolina98_max    :  number;
-//   gasolina98_avg    :  number;
-// }
 
 
 
@@ -38,8 +24,11 @@ export class AppComponent implements OnInit {
   title = 'Fuel-Watch';
   apiData : any;
 
+  public userLocation?:[number,number];
   public arrayTarjetas: Tarjeta[] = [];
   public objetoEstadisticas = {};
+
+  public hola:string = "";
 
   public UbicacionABuscar:string = "";
   public datosConsulta:any;
@@ -72,7 +61,7 @@ ubicacionABuscar(Item_busqueda: string) {
 
 
 
-  console.log("this.estadicas"+this.estadisticas);
+  // console.log("this.estadicas"+this.estadisticas);
 
   // busca los datos de servicestations
   this.crudService.BuscarPorUbicacion(
@@ -108,7 +97,7 @@ ubicacionABuscar(Item_busqueda: string) {
   this.datosConsulta = result['eess'];
 
 
-  console.log(this.datosConsulta);
+  // console.log(this.datosConsulta);
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
@@ -135,17 +124,15 @@ ubicacionABuscar(Item_busqueda: string) {
     }
     // compropbamos rango precios:
 
-    console.log(" [target] ="+ target)
-    console.log(" this.rangosPrecio.min ="+ this.rangosPrecio.min)
-    console.log(" this.rangosPrecio.max ="+ this.rangosPrecio.max)
+    // console.log(" [target] ="+ target)
+    // console.log(" this.rangosPrecio.min ="+ this.rangosPrecio.min)
+    // console.log(" this.rangosPrecio.max ="+ this.rangosPrecio.max)
 
     if(
       this.datosConsulta[n][target] != 0 &&
       this.datosConsulta[n][target] >= this.rangosPrecio.min &&
       this.datosConsulta[n][target] <= this.rangosPrecio.max
       ){
-      console.log(" this.datosConsulta[n][target] ="+ this.datosConsulta[n][target])
-      console.log("CUMPLE REQUISITOS ")
 
       this.arrayTarjetas.push(
         {
@@ -174,6 +161,7 @@ ubicacionABuscar(Item_busqueda: string) {
 }
 
 items_to_Show(combustibles:any){
+
   console.log(combustibles);
 
     this.combustiblesMostrar [0] = combustibles['diesel'];
@@ -182,6 +170,8 @@ items_to_Show(combustibles:any){
     this.combustiblesMostrar [3] = combustibles['gasolina98'];
 
     if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
+
+    console.log("combustiblesMostrar: "+this.combustiblesMostrar)
 }
 
 rangoMostrar(rango:any){
@@ -190,14 +180,43 @@ rangoMostrar(rango:any){
   this.rangosPrecio.target = rango.target ? rango.target : 0;
   this.rangosPrecio.min = rango.min;
   this.rangosPrecio.max = rango.max;
-  console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
+  // console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
 
   if (this.itemBusqueda!="") this.ubicacionABuscar(this.itemBusqueda);
 
 
 }
 
-ngOnInit():void {
+public async getUserLocation(): Promise <[number,number]>{
+  return new Promise( ( resolve, reject ) => {
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords}) => {
+        this.userLocation =  [coords.longitude, coords.latitude];
+        resolve (this.userLocation);
+      },
+
+      ( err ) => {
+        console.log(err);
+        reject();
+      }
+    );
+  });
+}
+
+async ngOnInit() {
+
+// obtenemos la ubicacion del navegador del
+  await this.getUserLocation();
+  // alert(this.userLocation);
+
+  await this.crudService.BuscarPorCoordenadas(
+    this.userLocation).subscribe(result=> {
+      this.UbicacionABuscar = Object.values(result)[0];
+      this.ubicacionABuscar(this.UbicacionABuscar);
+    });
+
+
 
 }
 

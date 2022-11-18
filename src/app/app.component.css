@@ -7,6 +7,7 @@
   --acento-verde  : #22c4a5;
 }
 
+::ng-deep body{  background-color:var(--fondo-claro);}
 
 
 /* HEADER { logo , filtros , buscador} */
@@ -45,12 +46,37 @@ background-color: var(--fondo-oscuro);
   width: 100%;
 }
 
+/* contenedor para las estadísticas */
+#stats-container{
+  width: 100vw;
+  padding-bottom: 15px;
+  padding-top: 5px;
+  background-color:#e8f0fe;
+  color:#94989a;
+  margin-bottom: 20px;
+
+}
+
+
 /* contenedor donde se alojan las tarjetas */
+
 #card-container{
+  width: 100%;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  gap:1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+  gap:20px;
+  margin-top: 20px;
+
+}
+
+app-card{
+  background-color:#fff;
+  border-radius: 10px;
+  padding:10px;
+  width: 500px;
+
 }
 /*
 .container-logo{

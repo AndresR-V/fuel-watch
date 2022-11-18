@@ -1,30 +1,48 @@
-<div class="estadisticas-container">
-  <table class="table" *ngIf="stats.diesel_min">
-    <tr>
-      <th>mínimo</th>
-      <th>máximo</th>
-      <th>media</th>
-    </tr>
+<p>Estadísticas de precios en {{ ubicacion }}</p>
+<div class="container estadisticas-container" *ngIf="stats.diesel_min">
+  <div class="row">
+    <div class="col-3">Diesel</div>
 
-    <tr>
-      <td>{{ stats.diesel_min }} €/litro</td>
-      <td>{{ stats.diesel_max }} €/litro</td>
-      <td>{{ stats.diesel_avg }} €/litro</td>
-    </tr>
-    <tr>
-      <td>{{ stats.diesel_extra_min }} €/litro</td>
-      <td>{{ stats.diesel_extra_max }} €/litro</td>
-      <td>{{ stats.diesel_extra_avg }} €/litro</td>
-    </tr>
-    <tr>
-      <td>{{ stats.gasolina95_min }} €/litro</td>
-      <td>{{ stats.gasolina95_max }} €/litro</td>
-      <td>{{ stats.gasolina95_avg }} €/litro</td>
-    </tr>
-    <tr>
-      <td>{{ stats.gasolina98_min }} €/litro</td>
-      <td>{{ stats.gasolina98_max }} €/litro</td>
-      <td>{{ stats.gasolina98_avg }} €/litro</td>
-    </tr>
-  </table>
+    <div class="col-3">Diesel +</div>
+
+    <div class="col-3">Galsolina 95</div>
+
+    <div class="col-3">Galsolina 98</div>
+  </div>
+
+  <div class="row">
+    <div class="col">min</div>
+    <div class="col">max</div>
+    <div class="col">avg</div>
+    <div class="col"></div>
+    <div class="col">min</div>
+    <div class="col">max</div>
+    <div class="col">avg</div>
+    <div class="col"></div>
+    <div class="col">min</div>
+    <div class="col">max</div>
+    <div class="col">avg</div>
+    <div class="col"></div>
+    <div class="col">min</div>
+    <div class="col">max</div>
+    <div class="col">avg</div>
+  </div>
+
+  <div class="row">
+    <div class="col">{{ stats.diesel_min }} €/l</div>
+    <div class="col">{{ stats.diesel_max }} €/l</div>
+    <div class="col">{{ stats.diesel_avg }} €/l</div>
+    <div class="col"></div>
+    <div class="col">{{ stats.diesel_extra_min }} €/l</div>
+    <div class="col">{{ stats.diesel_extra_max }} €/l</div>
+    <div class="col">{{ stats.diesel_extra_avg }} €/l</div>
+    <div class="col"></div>
+    <div class="col">{{ stats.gasolina95_min }} €/l</div>
+    <div class="col">{{ stats.gasolina95_max }} €/l</div>
+    <div class="col">{{ stats.gasolina95_avg }} €/l</div>
+    <div class="col"></div>
+    <div class="col">{{ stats.gasolina98_min }} €/l</div>
+    <div class="col">{{ stats.gasolina98_max }} €/l</div>
+    <div class="col">{{ stats.gasolina98_avg }} €/l</div>
+  </div>
 </div>

@@ -36,5 +36,10 @@ EstadisticasDeUbicacion(ubicacion:string):Observable<any>{
 }
 
 
+BuscarPorCoordenadas (coords:any){
+  let url = this.API + "?coord=1&lon="+ coords[0] + "&lat=" + coords[1];
+  return this.http.get(url);
+}
+
 }
 

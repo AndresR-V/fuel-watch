@@ -3,12 +3,19 @@
     <input
       #datoABuscar
       type="text"
+      required
+      autofocus
+      tabindex="1"
+      accesskey="B"
+      target="buscar"
       class="form-control"
       name="input_search"
       placeholder="Localidad o CP"
+      value="{{ ubicacion }}"
     />
     <div class="input-group-append">
       <button
+        id="buscar"
         class="btn btn-primary"
         type="button"
         (click)="getUbicacion(datoABuscar.value)"
