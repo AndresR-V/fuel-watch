@@ -6,22 +6,36 @@ require "BD.php";
 
 $bd = new BD();
 
-
+$response = [];
 
 if (isset($_GET["buscar"])) {
 
     $target = $_GET['target'];
 
-    if (is_int($target)) {
-        $respuesta = $bd->getDatafromCp($target);
-    } else {
-        $respuesta = $bd->getDatafromLocalidad($target);
+
+    // array_localidades = $bd->getLocalidades();
+
+
+
+    if ($target != '') {
+
+        if (is_int((int)$target) && strlen($target) == 5) {
+            // echo "es un CP";
+            $respuesta = $bd->getDatafromCp($target);
+        } else {
+            // echo "es una localidad";
+            $respuesta = $bd->getDatafromLocalidad($target);
+        }
     }
 
+
     // var_dump($respuesta);
+    // die();
 
+    // echo json_encode($respuesta, JSON_FORCE_OBJECT);
 
-    echo json_encode($respuesta, JSON_FORCE_OBJECT);
+    // array_push($response, $respuesta);
+    $response['eess'] = $respuesta;
 }
 
 if (isset($_GET["actualizar"])) {
@@ -65,13 +79,23 @@ if (isset($_GET["actualizar"])) {
         ];
     }
 
-    if ($bd->addServiceStations($array_EESS)) echo 'añadidas correctamente';
+    if ($bd->addServiceStations($array_EESS)) echo ' añadidas correctamente <hr>';
 
-    if ($bd->addHistorico(date('Y-m-d'), $datos_json)) echo 'histórico añadido correctamente';
+    if ($bd->addHistorico(date('Y-m-d'), json_encode($array_historico))) echo ' histórico añadido correctamente <hr>';
 }
 
 if (isset($_GET["estadisticas"])) {
-    $target = $_GET['target'];
+    $input = $_GET['target'];
+
+
+    if (is_int((int)$input) && strlen($input) == 5) {
+        $target = $bd->getLocalidadfromCp($input)[0];
+    } else {
+        $target = $input;
+    }
+
+
+    $estadisticas[$target] = [];
 
     $sum_diesel         =  ($bd->getPriceSum('precio_diesel', $target))[0];
     $sum_diesel_extra   =  ($bd->getPriceSum('precio_diesel_extra', $target))[0];
@@ -79,62 +103,58 @@ if (isset($_GET["estadisticas"])) {
     $sum_gasolina_98    =  ($bd->getPriceSum('precio_gasolina_98', $target))[0];
 
 
-    $avg_diesel       =  round($sum_diesel[0]        / ($bd->getPriceCount('precio_diesel', $target))[0], 2);
-    $avg_diesel_extra =  round($sum_diesel_extra[0]  / ($bd->getPriceCount('precio_diesel_extra', $target))[0], 2);
-    $avg_gasolina_95  =  round($sum_gasolina_95[0]   / ($bd->getPriceCount('precio_gasolina_95', $target))[0], 2);
-    $avg_gasolina_98  =  round($sum_gasolina_98[0]   / ($bd->getPriceCount('precio_gasolina_98', $target))[0], 2);
 
-    $max_diesel         =  round(($bd->getPriceLimit('precio_diesel', $target, 'MAX'))[0], 2);
-    $max_diesel_extra   =  round(($bd->getPriceLimit('precio_diesel_extra', $target, 'MAX'))[0], 2);
-    $max_gasolina_95    =  round(($bd->getPriceLimit('precio_gasolina_95', $target, 'MAX'))[0], 2);
-    $max_gasolina_98    =  round(($bd->getPriceLimit('precio_gasolina_98', $target, 'MAX'))[0], 2);
+    $diesel["min"]         =  round(($bd->getPriceLimit('precio_diesel', $target, 'MIN'))[0], 2);
+    $diesel["max"]         =  round(($bd->getPriceLimit('precio_diesel', $target, 'MAX'))[0], 2);
+    $diesel["avg"]         =  round($sum_diesel / ($bd->getPriceCount('precio_diesel', $target))[0], 2);
 
-    $min_diesel         =  round(($bd->getPriceLimit('precio_diesel', $target, 'MIN'))[0], 2);
-    $min_diesel_extra   =  round(($bd->getPriceLimit('precio_diesel_extra', $target, 'MIN'))[0], 2);
-    $min_gasolina_95    =  round(($bd->getPriceLimit('precio_gasolina_95', $target, 'MIN'))[0], 2);
-    $min_gasolina_98    =  round(($bd->getPriceLimit('precio_gasolina_98', $target, 'MIN'))[0], 2);
 
-    // echo ("precio máximo diesel en  $target :  $max_diesel € <br>");
-    // echo ("precio mínimo diesel en  $target :  $min_diesel € <br>");
-    // echo ("precio medio  diesel en  $target :  $avg_diesel € <br>");
+    $diesel_extra["min"]   =  round(($bd->getPriceLimit('precio_diesel_extra', $target, 'MIN'))[0], 2);
+    $diesel_extra["max"]   =  round(($bd->getPriceLimit('precio_diesel_extra', $target, 'MAX'))[0], 2);
+    $diesel_extra["avg"]   =  round($sum_diesel_extra / ($bd->getPriceCount('precio_diesel_extra', $target))[0], 2);
 
-    // echo ("precio máximo diesel en  $target :  $max_diesel_extra € <br>");
-    // echo ("precio mínimo diesel en  $target :  $min_diesel_extra € <br>");
-    // echo ("precio medio  diesel en  $target :  $avg_diesel_extra € <br>");
+    $gasolina_95["min"]    =  round(($bd->getPriceLimit('precio_gasolina_95', $target, 'MIN'))[0], 2);
+    $gasolina_95["max"]    =  round(($bd->getPriceLimit('precio_gasolina_95', $target, 'MAX'))[0], 2);
+    $gasolina_95["avg"]    =  round($sum_gasolina_95   / ($bd->getPriceCount('precio_gasolina_95', $target))[0], 2);
 
-    // echo ("precio máximo diesel en  $target :  $max_gasolina_95 € <br>");
-    // echo ("precio mínimo diesel en  $target :  $min_gasolina_95 € <br>");
-    // echo ("precio medio  diesel en  $target :  $avg_gasolina_95 € <br>");
+    $gasolina_98["min"]    =  round(($bd->getPriceLimit('precio_gasolina_98', $target, 'MIN'))[0], 2);
+    $gasolina_98["max"]    =  round(($bd->getPriceLimit('precio_gasolina_98', $target, 'MAX'))[0], 2);
+    $gasolina_98["avg"]    =  round($sum_gasolina_98  / ($bd->getPriceCount('precio_gasolina_98', $target))[0], 2);
 
-    // echo ("precio máximo diesel en  $target :  $max_gasolina_98 € <br>");
-    // echo ("precio mínimo diesel en  $target :  $min_gasolina_98 € <br>");
-    // echo ("precio medio  diesel en  $target :  $avg_gasolina_98 € <br>");
 
-    echo json_encode(' "estadisticas":{
-    ' . $target . ':{
-        "diesel"{
-            "min": ' . $min_diesel . ',
-            "max": ' . $max_diesel . ',
-            "avg": ' . $avg_diesel . '
-        },    
-        "diesel_extra"{
-            "min": ' . $min_diesel_extra . ',
-            "max": ' . $max_diesel_extra . ',
-            "avg": ' . $avg_diesel_extra . '
-        },
-        "gasolina_95" {
-            "min": ' . $min_gasolina_95 . ',
-            "max": ' . $max_gasolina_95 . ',
-            "avg": ' . $avg_gasolina_95 . '
-        },
-        "gasolina_98" {
-            "min": ' . $min_gasolina_98 . ',
-            "max": ' . $max_gasolina_98 . ',
-            "avg": ' . $avg_gasolina_98 . '
-        },
-    },
-}', JSON_FORCE_OBJECT);
+
+    $estadisticas[$target]['diesel']        =  $diesel;
+    $estadisticas[$target]['diesel_extra']  =  $diesel_extra;
+    $estadisticas[$target]['gasolina_95']   =  $gasolina_95;
+    $estadisticas[$target]['gasolina_98']   =  $gasolina_98;
+
+
+    // echo json_encode($estadisticas, JSON_FORCE_OBJECT);
+
+
+
+    $response['estadisticas'] = $estadisticas;
+    echo json_encode($response, JSON_FORCE_OBJECT);
 }
+
+if (isset($_GET["historico"])) {
+}
+
+
+if (isset($_GET["coord"])) {
+
+    $response = $bd->getLocationByCoords($_GET["lon"], $_GET["lat"]);
+    echo json_encode($response, JSON_FORCE_OBJECT);
+}
+
+
+
+
+
+
+
+
+
 
 function getRest($url)
 {
