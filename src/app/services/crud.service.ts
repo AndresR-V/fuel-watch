@@ -41,5 +41,9 @@ BuscarPorCoordenadas (coords:any){
   return this.http.get(url);
 }
 
+historicoPrecios (id_ss:string):Observable<any>{
+  let url = this.API + "?historico=1&id_ss="+id_ss;
+  return this.http.get(url);
+}
 }
 

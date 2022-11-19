@@ -12,6 +12,9 @@
 
 /* HEADER { logo , filtros , buscador} */
 #header-container{
+margin:0;
+padding:0;
+box-sizing: border-box;
 display: flex;
 flex-flow: row wrap;
 justify-content: space-between;
@@ -72,6 +75,7 @@ background-color: var(--fondo-oscuro);
   margin:0;
   padding:0;
   box-sizing: border-box;
+
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -84,11 +88,13 @@ background-color: var(--fondo-oscuro);
 }
 
 #main-container app-search-bar{
+
   width: 100vw;
+  background-color:var(--fondo-oscuro);
   z-index:1;
   position: sticky;
   top: 0;
-  background-color:var(--fondo-oscuro);
+
 
 }
 

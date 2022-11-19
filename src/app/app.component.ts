@@ -117,6 +117,10 @@ public refresh_cards(){
 
   for (const n of Object.keys(this.datosConsulta)) {
 
+
+  // obtenemos historico
+    this.getHistorico(this.datosConsulta[n]["id_ss"]);
+
     // console.log(this.datosConsulta[n]);
 
     let target = "";
@@ -169,6 +173,19 @@ public refresh_cards(){
 
   }
 }
+
+getHistorico(id_ss:string) {
+  this.crudService.historicoPrecios(
+    id_ss).subscribe(result => {
+
+      for (const n of Object.keys(this.datosConsulta)) {
+      console.log("#### HISTORICO DE "+id_ss+": "+ result[n]['fecha']+ result[n]['precios'][0]);
+      }
+    });
+
+}
+
+
 
 items_to_Show(combustibles:any){
 
