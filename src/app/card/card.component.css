@@ -64,9 +64,22 @@ figure {
 
 .direccion{
   margin:5px;
+  height: 20px;
   font-size: 15px;
   padding-left: 1rem;
+  display:flex;
+  justify-content:flex-start;
+  gap: 20px;
+  align-items: center;
 
+}
+.direccion h6{
+  align-self: center;
+  margin:0;
+}
+.direccion a{
+
+  margin-bottom:12px;
 }
 
 
@@ -78,7 +91,7 @@ figure {
 }
 
 mat-expansion-panel{
-  margin-top:20px;
+  margin-top:10px;
   margin-bottom: 10px;
   background-color:var(--fondo-oscuro);
 

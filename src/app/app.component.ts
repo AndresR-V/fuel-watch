@@ -8,6 +8,8 @@ interface Tarjeta{
   precios:any[];
   direccion:string;
   horario?:string;
+  longitud:string;
+  latitud:string;
 }
 
 
@@ -156,7 +158,9 @@ public refresh_cards(){
                         { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"],  show:this.combustiblesMostrar[3] },
                       ],
         direccion:this.datosConsulta[n]['direccion'],
-        horario:this.datosConsulta[n]['horario']
+        horario:this.datosConsulta[n]['horario'],
+        longitud:this.datosConsulta[n]['longitud'].replace(",", "."),
+        latitud:this.datosConsulta[n]['latitud'].replace(",", ".")
         }
 
 

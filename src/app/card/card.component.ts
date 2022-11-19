@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input } from '@angular/core';
-import { faGasPump, faLock,faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faGasPump,faLock,faLockOpen, faLocationDot, faMapLocation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-card',
@@ -25,6 +25,7 @@ export class CardComponent implements OnInit {
   private anclado:boolean = true;
   faGasPump = faGasPump;
   candado = faLock;
+  faLocation= faLocationDot;
   // candado = this.anclado ? faLock : faLockOpen;
 
   public anclar(event: any) {
