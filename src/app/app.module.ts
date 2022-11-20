@@ -17,7 +17,7 @@ import { MatExpansionModule  } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 // import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -43,7 +43,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatToolbarModule,
     MatCheckboxModule,
     BrowserAnimationsModule,
-    NgxSliderModule,
+    NgxChartsModule,
 
   ],
   providers: [CarburantesService],

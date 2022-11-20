@@ -10,6 +10,8 @@ interface Tarjeta{
   horario?:string;
   longitud:string;
   latitud:string;
+  historico:any;
+  favorito?:boolean;
 }
 
 
@@ -39,11 +41,18 @@ export class AppComponent implements OnInit {
   public itemBusqueda:string ="";
   public combustiblesMostrar:boolean[]=[true,true,true,true]
 
+  public arrayFavoritos:string[] = [];
+  // public  arrayFavoritos = ['275', '335'];
   public rangosPrecio = {
     target: 0,
     min: 0,
     max:0,
   };
+
+public historico:any=[];
+
+public listaLocaliades:any[] = [];
+
 
 
 
@@ -95,13 +104,16 @@ ubicacionABuscar(Item_busqueda: string) {
 
   });
 
+
   // datos estadciones de servicio
   this.datosConsulta = result['eess'];
 
+
+
+
+
+
   this.refresh_cards();
-
-
-
 
 });
 
@@ -110,18 +122,13 @@ ubicacionABuscar(Item_busqueda: string) {
 
 
 
-public refresh_cards(){
+public async refresh_cards(){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
 
   for (const n of Object.keys(this.datosConsulta)) {
 
-
-  // obtenemos historico
-    this.getHistorico(this.datosConsulta[n]["id_ss"]);
-
-    // console.log(this.datosConsulta[n]);
 
     let target = "";
 
@@ -145,11 +152,13 @@ public refresh_cards(){
     // console.log(" this.rangosPrecio.min ="+ this.rangosPrecio.min)
     // console.log(" this.rangosPrecio.max ="+ this.rangosPrecio.max)
 
+
     if(
       this.datosConsulta[n][target] != 0 &&
       this.datosConsulta[n][target] >= this.rangosPrecio.min &&
       this.datosConsulta[n][target] <= this.rangosPrecio.max
       ){
+
 
       this.arrayTarjetas.push(
         {
@@ -164,7 +173,9 @@ public refresh_cards(){
         direccion:this.datosConsulta[n]['direccion'],
         horario:this.datosConsulta[n]['horario'],
         longitud:this.datosConsulta[n]['longitud'].replace(",", "."),
-        latitud:this.datosConsulta[n]['latitud'].replace(",", ".")
+        latitud:this.datosConsulta[n]['latitud'].replace(",", "."),
+        historico: this.formatearHistorico(this.datosConsulta[n]["historico"]),
+        favorito: this.arrayFavoritos.includes(this.datosConsulta[n]["id_ss"])
         }
 
 
@@ -174,14 +185,115 @@ public refresh_cards(){
   }
 }
 
-getHistorico(id_ss:string) {
-  this.crudService.historicoPrecios(
-    id_ss).subscribe(result => {
 
-      for (const n of Object.keys(this.datosConsulta)) {
-      console.log("#### HISTORICO DE "+id_ss+": "+ result[n]['fecha']+ result[n]['precios'][0]);
+
+formatearHistorico(datos_historico:any) {
+  const seriesDiesel     = [];
+  const seriesDieselplus = [];
+  const seriesGasolina95 = [];
+  const seriesGasolina98 = [];
+  let arrayhistorico = [];
+
+  let dieselExiste= true;
+  let dieselplusExiste= true;
+  let gasolina95Existe= true;
+  let gasolina98Existe= true;
+
+  // console.log('Object.keys(this.datosConsulta).length: '+Object.keys(this.datosConsulta).length)
+
+  for (const n of Object.keys(datos_historico)) {
+    try {
+      // console.log("#### HISTORICO DE : "+ JSON.parse(datos_historico[n]['precios'])[0]);
+
+
+      if(Number(JSON.parse(datos_historico[n]['precios'])[0]) ==0 ) dieselExiste= false;
+      if(Number(JSON.parse(datos_historico[n]['precios'])[1]) ==0 ) dieselplusExiste= false;
+      if(Number(JSON.parse(datos_historico[n]['precios'])[2]) ==0 ) gasolina95Existe= false;
+      if(Number(JSON.parse(datos_historico[n]['precios'])[3]) ==0 ) gasolina98Existe= false;
+
+
+    seriesDiesel.push(
+            {
+              'name':  datos_historico[n]['fecha'],
+              'value': Number(JSON.parse(datos_historico[n]['precios'])[0]),
+            }
+    )
+
+    seriesDieselplus.push(
+      {
+        'name':  datos_historico[n]['fecha'],
+        'value': Number(JSON.parse(datos_historico[n]['precios'])[1]),
       }
-    });
+    )
+    seriesGasolina95.push(
+      {
+        'name':  datos_historico[n]['fecha'],
+        'value': Number(JSON.parse(datos_historico[n]['precios'])[2]),
+      }
+    )
+
+    seriesGasolina98.push(
+      {
+        'name':  datos_historico[n]['fecha'],
+        'value': Number(JSON.parse(datos_historico[n]['precios'])[3]),
+      }
+    )
+
+  } catch (error) {
+    //
+  }
+  }
+
+
+  if(dieselplusExiste){
+    arrayhistorico.push(
+      {
+        name: 'Diesel',
+        series: seriesDiesel,
+      },
+      {
+        name: 'Diesel+',
+        series: seriesDieselplus,
+      },
+      {
+        name: 'Gasolina 95',
+        series: seriesGasolina95,
+      },
+      {
+        name: 'Gasolina 98',
+        series: seriesGasolina98,
+      }
+    )
+  }else if(gasolina98Existe){
+    arrayhistorico.push(
+      {
+        name: 'Diesel',
+        series: seriesDiesel,
+      },
+      {
+        name: 'Gasolina 95',
+        series: seriesGasolina95,
+      },
+      {
+        name: 'Gasolina 98',
+        series: seriesGasolina98,
+      }
+    );
+  }else if(gasolina95Existe){
+    arrayhistorico.push(
+      {
+        name: 'Diesel',
+        series: seriesDiesel,
+      });
+  }
+
+
+//  console.log("arrayhistorico---- "+ JSON.stringify(arrayhistorico) )
+
+  return arrayhistorico;
+
+
+
 
 }
 
@@ -198,6 +310,19 @@ items_to_Show(combustibles:any){
 
     if (this.itemBusqueda!="")  this.refresh_cards();
     console.log("combustiblesMostrar: "+this.combustiblesMostrar)
+}
+
+anclar(favorito:any){
+  console.log("favorito "+ favorito.active);
+  if(favorito.active){
+    if(!this.arrayFavoritos.includes(favorito.id)) this.arrayFavoritos.push(favorito.id)
+  }else{
+    this.arrayFavoritos = this.arrayFavoritos.filter(item => item!=favorito.id);
+
+  }
+  // console.log(this.arrayFavoritos);
+  // this.refresh_cards();
+
 }
 
 rangoMostrar(rango:any){
@@ -232,6 +357,8 @@ public async getUserLocation(): Promise <[number,number]>{
 
 async ngOnInit() {
 
+
+
 // obtenemos la ubicacion del navegador del
   await this.getUserLocation();
   // alert(this.userLocation);
@@ -242,8 +369,22 @@ async ngOnInit() {
       this.ubicacionABuscar(this.UbicacionABuscar);
     });
 
+  // Se obtiene el listadod e localidades de la Buscando
+
+  this.crudService.obtenerListaLocalidades().subscribe(result=> {
+    this.listaLocaliades = [];
+
+    for (let i = 0; i < Object.keys(result).length; i++) {
+      this.listaLocaliades.push(Object.values(result)[i]['localidad']);
+    }
 
 
+  });
+
+  // se obtiene los favoritos
+  this.crudService.obtenerFavoritos(this.arrayFavoritos).subscribe(result=> {
+    console.log(result);
+  });
 }
 
 

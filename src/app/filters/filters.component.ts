@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-filters',

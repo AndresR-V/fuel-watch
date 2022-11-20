@@ -1,6 +1,5 @@
-<!-- <div class="card"> -->
-
-<div class="card-title">
+<!-- <div [ngClass]="{ anclado: dataApi.favorito }"> -->
+<div class="card-title" id="{{ dataApi.id }}">
   <h5 class="rotulo">{{ dataApi.rotulo }}</h5>
 
   <i class="fa-2x text-secondary fa-" (click)="anclar($event)">
@@ -90,7 +89,24 @@
       <h6>Evolución precios</h6>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div class="grafica">{{ dataApi.id }}</div>
+  <div class="grafica-container">
+    <div class="grafica">
+      <ngx-charts-line-chart
+        [legend]="true"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [xAxisLabel]="'Fecha'"
+        [yAxisLabel]="'Precio'"
+        [timeline]="true"
+        [autoScale]="true"
+        [results]="dataApi.historico"
+        [scheme]="colorScheme"
+      >
+      </ngx-charts-line-chart>
+    </div>
+  </div>
 </mat-expansion-panel>
 
 <!-- </div> -->

@@ -3,6 +3,7 @@
     <input
       #datoABuscar
       type="text"
+      (keyup)="addSugerencia($event, sugerenciasDiv)"
       required
       autofocus
       tabindex="1"
@@ -18,10 +19,18 @@
         id="buscar"
         class="btn btn-primary"
         type="submit"
-        (click)="getUbicacion(datoABuscar.value)"
         name="buscar"
         value="Buscar"
+        (click)="getUbicacion(datoABuscar.value)"
       />
     </div>
   </div>
+
+  <div
+    #sugerenciasDiv
+    class="sugerencias"
+    (click)="datoABuscar.value = sugerenciasDiv.innerHTML"
+    (click)="datoABuscar.focus()"
+    (click)="sugerenciasDiv.style.display = 'none'"
+  ></div>
 </form>

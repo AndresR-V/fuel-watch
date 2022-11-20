@@ -41,9 +41,15 @@ BuscarPorCoordenadas (coords:any){
   return this.http.get(url);
 }
 
-historicoPrecios (id_ss:string):Observable<any>{
-  let url = this.API + "?historico=1&id_ss="+id_ss;
+obtenerFavoritos(favs:any){
+  let url = this.API+"?favoritos=1&listado="+ JSON.stringify(favs);
   return this.http.get(url);
 }
+
+obtenerListaLocalidades(){
+  let url = this.API+"?localidades=1";
+  return this.http.get(url);
+}
+
 }
 

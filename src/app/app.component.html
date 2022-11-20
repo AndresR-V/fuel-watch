@@ -15,6 +15,7 @@
   <app-search-bar
     (searchValue)="ubicacionABuscar($event)"
     [ubicacion]="UbicacionABuscar"
+    [listaLocaliades]="listaLocaliades"
   ></app-search-bar>
 
   <div id="stats-container">
@@ -29,6 +30,7 @@
     class="card"
     [dataApi]="card"
     [stats]="objetoEstadisticas"
+    (favoritos)="anclar($event)"
     *ngFor="let card of arrayTarjetas"
   ></app-card>
 </div>
