@@ -24,6 +24,8 @@ export class CardComponent implements OnInit {
 
   anclado:boolean= false;
 
+  imagen:any;
+
   // esquema de colores para los gráficos de histórico de precios
   colorScheme:Color = {
     domain: ['#EA8254', '#0db9f0', '#21C4A6', '#333f50'],
@@ -33,6 +35,8 @@ export class CardComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.imagen = new Image();
+    this.imagen.src = "../../assets/images/logos/GAS.svg";
 
     this.candado = this.anclado ? faLock : faLockOpen;
 

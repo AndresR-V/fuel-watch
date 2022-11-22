@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Options, LabelType } from "@angular-slider/ngx-slider";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-filters',
@@ -9,6 +10,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class FiltersComponent implements OnInit {
+
+  @Input() precioMin:any = 1.5; // minimo del slider
+  @Input() precioMax:any = 2.5; // máximo del slider
 
   @Output() combustiblesMostrar = new EventEmitter<object>();
   @Output() rangosPrecio = new EventEmitter<object>();
@@ -68,20 +72,20 @@ export class FiltersComponent implements OnInit {
   actualmaxValue: number=0;
 
   // estos datos se sacan de la media de precios actual
-  minValue: number = 1.80;
-  maxValue: number = 2.30;
+  // minValue: number = 1.80;
+  // maxValue: number = 2.30;
   rangeTarget:string= "";
 
   private rangos = {
     target: this.rangeTarget,
-    min: this.minValue,
-    max: this.maxValue,
+    min:  this.precioMin,
+    max: this.precioMax,
   }
 
 
   options: Options = {
-    floor: 1.70,
-    ceil: 2.30,
+    floor: this.precioMin,
+    ceil: this.precioMax,
     step:0.01,
     translate: (value: number, label: LabelType): string => {
       value;
@@ -115,6 +119,8 @@ export class FiltersComponent implements OnInit {
   ngOnInit(): void {
     // cuando se inicia la aplicacion recoge los rangos del slider
     this.rangosPrecio.emit(this.rangos);
+
+
   }
 
 
@@ -146,25 +152,30 @@ export class FiltersComponent implements OnInit {
     this.combustiblesMostrar.emit(this.showCombustibles);
 
 
+
   }
 
   readSelect(event:any){
 
     this.rangos.target = event.target.selectedIndex;
-    this.rangos.min= this.minValue+0.01;
-    this.rangos.max= this.maxValue+0.01;
+
     this.readSlider(event);
+    this.rangosPrecio.emit(this.rangos);
 
   }
 
-  readSlider(event:any){
+ readSlider(event:any){
 
     this.rangos.min= this.actualminValue;
     this.rangos.max= this.actualmaxValue;
     // console.log(this.rangos);
-    this.rangosPrecio.emit(this.rangos);
+
+
   }
 
+  async submitSlider(event:any){
+    this.rangosPrecio.emit(this.rangos);
+  }
 
 }
 

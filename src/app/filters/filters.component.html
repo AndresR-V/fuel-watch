@@ -4,47 +4,61 @@
   ng-change="capturaFiltro()"
   [formGroup]="filtersForm"
 >
-  <div class="container-checkbox" (change)="readCheck($event)">
-    <!-- <h5>Mostrar precios de :</h5> -->
-    <label class="form-check-label" for="check1">
-      <input
-        type="checkbox"
-        formConrtrolName="dieselEnable"
-        id="dieselEnable"
-        checked
-      />
-      Diesel</label
+  <div class="container-marcas">
+    <label class="label-filtro"> Marca: </label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      (change)="readSelect($event)"
     >
-    <label class="form-check-label" for="check1">
-      <input
-        type="checkbox"
-        formConrtrolName="dieselPlusEnable"
-        id="dieselPlusEnable"
-        checked
-      />
-      Diesel+</label
-    >
-    <label class="form-check-label" for="check1">
-      <input
-        type="checkbox"
-        formConrtrolName="gas95Enable"
-        id="gas95Enable"
-        checked
-      />
-      Gasolina 95</label
-    >
-    <label class="form-check-label" for="check1">
-      <input
-        type="checkbox"
-        formConrtrolName="gas98Enable"
-        id="gas98Enable"
-        checked
-      />
-      Gasolina 98</label
-    >
-  </div>
+      <option>Repsol</option>
+    </select>
 
+    <div class="container-checkbox" (change)="readCheck($event)">
+      <label class="label-filtro label-filtro-check">
+        Tipo de combustible:
+      </label>
+      <!-- <h5>Mostrar precios de :</h5> -->
+      <label class="form-check-label" for="dieselEnable">
+        <input
+          type="checkbox"
+          formConrtrolName="dieselEnable"
+          id="dieselEnable"
+          checked
+        />
+        Diesel</label
+      >
+      <label class="form-check-label" for="dieselPlusEnable">
+        <input
+          type="checkbox"
+          formConrtrolName="dieselPlusEnable"
+          id="dieselPlusEnable"
+          checked
+        />
+        Diesel+</label
+      >
+      <label class="form-check-label" for="gas95Enable">
+        <input
+          type="checkbox"
+          formConrtrolName="gas95Enable"
+          id="gas95Enable"
+          checked
+        />
+        Gasolina 95</label
+      >
+      <label class="form-check-label" for="gas98Enable">
+        <input
+          type="checkbox"
+          formConrtrolName="gas98Enable"
+          id="gas98Enable"
+          checked
+        />
+        Gasolina 98</label
+      >
+    </div>
+  </div>
   <div class="container-slider">
+    <label class="label-filtro"> Precio: </label>
     <select
       class="form-select"
       aria-label="Default select example"
@@ -62,9 +76,10 @@
         class="orange"
         (valueChange)="readSlider($event)"
         (highValueChange)="readSlider($event)"
+        (mouseup)="submitSlider($event)"
         formConrtrolName="sliderControl"
-        [(value)]="minValue"
-        [(highValue)]="maxValue"
+        [(value)]="precioMin"
+        [(highValue)]="precioMax"
         [options]="options"
       ></ngx-slider>
     </div>

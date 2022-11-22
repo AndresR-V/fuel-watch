@@ -38,6 +38,9 @@ export class AppComponent implements OnInit {
   public datosConsulta:any;
   public estadisticas:any = [];
 
+  public precioMin:number=0.5;
+  public precioMax:number=3.0;
+
   public itemBusqueda:string ="";
   public combustiblesMostrar:boolean[]=[true,true,true,true]
 
@@ -48,6 +51,7 @@ export class AppComponent implements OnInit {
     min: 0,
     max:0,
   };
+
 
 public historico:any=[];
 
@@ -98,6 +102,10 @@ ubicacionABuscar(Item_busqueda: string) {
         gasolina98_max    : this.estadisticas['gasolina_98']['max'],
         gasolina98_avg    : this.estadisticas['gasolina_98']['avg']
       };
+
+      // se establecen los valores min y max del slider de precios con un margen de 10 centimos por arriba y por abajo
+      this.precioMin = this.estadisticas['general']['min']- 0.10;
+      this.precioMax = this.estadisticas['general']['max']+ 0.10;
 
 
 
@@ -366,6 +374,7 @@ async ngOnInit() {
   await this.crudService.BuscarPorCoordenadas(
     this.userLocation).subscribe(result=> {
       this.UbicacionABuscar = Object.values(result)[0];
+      console.log('this.UbicacionABuscar_  '+Object.values(result)[0])
       this.ubicacionABuscar(this.UbicacionABuscar);
     });
 
