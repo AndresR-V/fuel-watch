@@ -27,6 +27,8 @@ background-color: var(--fondo-oscuro);
 #header-container app-filters{
   width:80%;
   padding-left: 250px;
+  display: flex;
+  justify-content: center;
 
 }
 
@@ -65,11 +67,6 @@ background-color: var(--fondo-oscuro);
 
 }
 
-#main-container .logo img{
-  width: 100%;
-  height: auto;
-}
-
 /* contenedor donde se alojan las tarjetas */
 #main-container{
   margin:0;
@@ -88,7 +85,6 @@ background-color: var(--fondo-oscuro);
 }
 
 #main-container app-search-bar{
-
   width: 100vw;
   background-color:var(--fondo-oscuro);
   z-index:1;
@@ -102,6 +98,6 @@ background-color: var(--fondo-oscuro);
   background-color:#fff;
   border-radius: 10px;
   padding:10px;
-  width: 450px;
+  width: 350px;
 
 }

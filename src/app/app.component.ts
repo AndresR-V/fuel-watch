@@ -104,8 +104,8 @@ ubicacionABuscar(Item_busqueda: string) {
       };
 
       // se establecen los valores min y max del slider de precios con un margen de 10 centimos por arriba y por abajo
-      this.precioMin = this.estadisticas['general']['min']- 0.10;
-      this.precioMax = this.estadisticas['general']['max']+ 0.10;
+      this.precioMin = this.estadisticas['general']['min'];
+      this.precioMax = this.estadisticas['general']['max'];
 
 
 

@@ -12,16 +12,18 @@ img{
 }
 
 .rotulo{
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0;
   padding-left: 1rem;
-  padding-top: 1rem;
+  padding-top: .5rem;
 }
 
 .card-title{
   display:flex;
   justify-content: space-between;
   margin-right: 15px;
+  padding-bottom: 0;
+  height: 40px;
 }
 
 .lock-button{
@@ -33,6 +35,7 @@ img{
 .card-body{
   width:180px;
   border-radius: 10px;
+  margin: 0 auto;
 
   display:flex;
   width:100%;
@@ -60,7 +63,7 @@ figure {
 
 .precios p{
   margin:10px;
-  font-size:1.2rem;
+  font-size:1rem;
 }
 
 .direccion{
