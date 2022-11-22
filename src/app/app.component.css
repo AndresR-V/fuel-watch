@@ -7,7 +7,8 @@
   --acento-verde  : #22c4a5;
 }
 
-::ng-deep body{  background-color:var(--fondo-claro);}
+::ng-deep body{  background-color:var(--fondo-claro);
+}
 
 
 /* HEADER { logo , filtros , buscador} */
@@ -96,8 +97,10 @@ background-color: var(--fondo-oscuro);
 
 #main-container  app-card{
   background-color:#fff;
+
   border-radius: 10px;
   padding:10px;
-  width: 350px;
+  /* width: 350px; */
+  width:18%;
 
 }

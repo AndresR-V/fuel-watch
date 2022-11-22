@@ -26,7 +26,7 @@
           <strong
             [ngClass]="{
               max: precio.precio > stats.diesel_max - 0.05,
-              min: precio.precio < stats.diesel_min + 0.05
+              min: precio.precio < stats.diesel_min + 0.03
             }"
             >{{ precio.precio }} </strong
           >€/l
@@ -36,7 +36,7 @@
           <strong
             [ngClass]="{
               max: precio.precio > stats.diesel_extra_max - 0.05,
-              min: precio.precio < stats.diesel_extra_min + 0.05
+              min: precio.precio < stats.diesel_extra_min + 0.03
             }"
             >{{ precio.precio }} </strong
           >€/l
@@ -46,7 +46,7 @@
           <strong
             [ngClass]="{
               max: precio.precio > stats.gasolina95_max - 0.0,
-              min: precio.precio < stats.gasolina95_min + 0.05
+              min: precio.precio < stats.gasolina95_min + 0.03
             }"
             >{{ precio.precio }} </strong
           >€/l
@@ -56,7 +56,7 @@
           <strong
             [ngClass]="{
               max: precio.precio > stats.gasolina98_max - 0.05,
-              min: precio.precio < stats.gasolina98_min + 0.05
+              min: precio.precio < stats.gasolina98_min + 0.03
             }"
             >{{ precio.precio }} </strong
           >€/l

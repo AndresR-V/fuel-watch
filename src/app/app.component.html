@@ -4,6 +4,8 @@
   <app-filters
     (combustiblesMostrar)="items_to_Show($event)"
     (rangosPrecio)="rangoMostrar($event)"
+    (marcaSeleccionada)="seleccionarMarca($event)"
+    [listadoMarcas]="listadoMarcas"
     [precioMin]="precioMin"
     [precioMax]="precioMax"
   ></app-filters>
@@ -28,11 +30,13 @@
     ></app-estadisticas>
   </div>
 
-  <app-card
-    class="card"
-    [dataApi]="card"
-    [stats]="objetoEstadisticas"
-    (favoritos)="anclar($event)"
-    *ngFor="let card of arrayTarjetas"
-  ></app-card>
+  <ng-container *ngFor="let card of arrayTarjetas">
+    <app-card
+      class="card"
+      [dataApi]="card"
+      [stats]="objetoEstadisticas"
+      (favoritos)="anclar($event)"
+      *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
+    ></app-card>
+  </ng-container>
 </div>

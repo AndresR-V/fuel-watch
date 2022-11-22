@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
   public precioMin:number=0.5;
   public precioMax:number=3.0;
 
+  public listadoMarcas:string[] = [];
+  public marcaSeleccionada = 'TODAS';
+
   public itemBusqueda:string ="";
   public combustiblesMostrar:boolean[]=[true,true,true,true]
 
@@ -134,10 +137,12 @@ public async refresh_cards(){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   this.arrayTarjetas=[];
+  this.listadoMarcas =[];
+
 
   for (const n of Object.keys(this.datosConsulta)) {
 
-
+    if (!this.listadoMarcas.includes( this.datosConsulta[n]["rotulo"] )) this.listadoMarcas.push(this.datosConsulta[n]["rotulo"]);
     let target = "";
 
     switch (this.rangosPrecio.target){
@@ -396,5 +401,10 @@ async ngOnInit() {
   });
 }
 
+
+seleccionarMarca(event:any){
+  console.log('this.marcaSeleccionada: '+event.target.value)
+  this.marcaSeleccionada = event.target.value;
+}
 
 }

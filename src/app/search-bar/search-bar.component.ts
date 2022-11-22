@@ -14,6 +14,7 @@ export class SearchBarComponent implements OnInit {
   formSearchBar = new FormControl('',[Validators.required]);
 
   @Input() ubicacion = "";
+  @Input() listadoMarcas = [];
   @Input() listaLocaliades:any[]=[];
   @Output() searchValue = new EventEmitter<string>();
 

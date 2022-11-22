@@ -9,9 +9,14 @@
     <select
       class="form-select"
       aria-label="Default select example"
-      (change)="readSelect($event)"
+      (change)="readSelectMarca($event)"
     >
-      <option>Repsol</option>
+      <option value="TODAS">TODAS</option>
+      <ng-container *ngFor="let marca of listadoMarcas">
+        <option [value]="marca">
+          {{ marca }}
+        </option>
+      </ng-container>
     </select>
 
     <div class="container-checkbox" (change)="readCheck($event)">

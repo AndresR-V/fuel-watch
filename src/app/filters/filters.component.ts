@@ -13,9 +13,11 @@ export class FiltersComponent implements OnInit {
 
   @Input() precioMin:any = 1.5; // minimo del slider
   @Input() precioMax:any = 2.5; // máximo del slider
+  @Input() listadoMarcas:string[] = [];
 
   @Output() combustiblesMostrar = new EventEmitter<object>();
   @Output() rangosPrecio = new EventEmitter<object>();
+  @Output() marcaSeleccionada= new EventEmitter<object>();
 
   public combustibles = [
     {
@@ -161,6 +163,12 @@ export class FiltersComponent implements OnInit {
 
     this.readSlider(event);
     this.rangosPrecio.emit(this.rangos);
+
+  }
+
+  readSelectMarca(event:any){
+    console.log('event.target.value: '+event.target.value)
+    this.marcaSeleccionada.emit(event);
 
   }
 
