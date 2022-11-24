@@ -25,6 +25,8 @@ img{
   padding-bottom: 0;
   height: 40px;
 
+
+
 }
 
 .lock-button{
@@ -127,5 +129,10 @@ mat-panel-title > *{
   border-radius: 5px;
   background-color:rgb(204, 217, 236);
 }
+
+.candado-anclado{
+  color:var(--acento-naranja);
+}
+
 
 

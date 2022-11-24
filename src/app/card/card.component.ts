@@ -19,10 +19,9 @@ export class CardComponent implements OnInit {
 
 
   faGasPump = faGasPump;
-  candado = faLock;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
   faLocation= faLocationDot;
-
-  anclado:boolean= false;
 
   imagen:any;
 
@@ -35,32 +34,21 @@ export class CardComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.imagen = new Image();
-    this.imagen.src = "../../assets/images/logos/GAS.svg";
-
-    this.candado = this.anclado ? faLock : faLockOpen;
 
   }
 
 
 
-  // candado = this.anclado ? faLock : faLockOpen;
+
 
   public anclar(event: any) {
     event.preventDefault();
 
-    this.anclado =  this.anclado? false : true;
-
-    console.log('this.anclado'+this.anclado)
-
-    let id_favorito = event.target.parentNode.parentNode.parentNode.parentNode.id;
-
-    this.candado = this.anclado ? faLock : faLockOpen;
 
     this.favoritos.emit(
       {
-        id: id_favorito,
-        active: this.anclado
+        id: event.target.parentNode.parentNode.parentNode.parentNode.id,
+        active: this.dataApi.favorito ? false : true
       }
     );
   }

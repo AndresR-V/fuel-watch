@@ -1,9 +1,15 @@
 <!-- <div [ngClass]="{ anclado: dataApi.favorito }"> -->
 <div class="card-title" id="{{ dataApi.id }}">
-  <h5 class="rotulo">{{ dataApi.rotulo }}</h5>
+  <h5 tabindex="0" class="rotulo">{{ dataApi.rotulo }}</h5>
 
-  <i class="fa-2x text-secondary fa-" (click)="anclar($event)">
-    <fa-icon [icon]="candado"></fa-icon
+  <i
+    (click)="anclar($event)"
+    [class]="
+      dataApi.favorito ? 'fa-2x candado-anclado' : 'fa-2x text-secondary'
+    "
+    tabindex="0"
+  >
+    <fa-icon [icon]="dataApi.favorito ? faLock : faLockOpen"></fa-icon
   ></i>
 </div>
 <div class="card-body">
@@ -24,6 +30,7 @@
         <span>{{ precio.tipo }} </span> :
         <ng-container *ngIf="precio.tipo == 'Diesel'">
           <strong
+            tabindex="0"
             [ngClass]="{
               max: precio.precio > stats.diesel_max - 0.05,
               min: precio.precio < stats.diesel_min + 0.03
@@ -34,6 +41,7 @@
 
         <ng-container *ngIf="precio.tipo == 'Diesel +'">
           <strong
+            tabindex="0"
             [ngClass]="{
               max: precio.precio > stats.diesel_extra_max - 0.05,
               min: precio.precio < stats.diesel_extra_min + 0.03
@@ -44,6 +52,7 @@
 
         <ng-container *ngIf="precio.tipo == 'Gasolina 95'">
           <strong
+            tabindex="0"
             [ngClass]="{
               max: precio.precio > stats.gasolina95_max - 0.0,
               min: precio.precio < stats.gasolina95_min + 0.03
@@ -54,6 +63,7 @@
 
         <ng-container *ngIf="precio.tipo == 'Gasolina 98'">
           <strong
+            tabindex="0"
             [ngClass]="{
               max: precio.precio > stats.gasolina98_max - 0.05,
               min: precio.precio < stats.gasolina98_min + 0.03
@@ -67,9 +77,10 @@
 </div>
 
 <div class="direccion">
-  <h6>{{ dataApi.direccion }}</h6>
+  <h6 tabindex="tabindex">{{ dataApi.direccion }}</h6>
 
   <a
+    tabindex="0"
     title="Abrir en GoogleMaps"
     class="fa-2x text-black"
     target="_blank"
@@ -81,7 +92,7 @@
   </a>
 </div>
 
-<p class="horario">{{ dataApi.horario }}</p>
+<p tabindex="0" class="horario">{{ dataApi.horario }}</p>
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>

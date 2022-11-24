@@ -101,8 +101,12 @@ export class FiltersComponent implements OnInit {
         default:
           return "  €" + value;
       }
-    }
+    },
+    getSelectionBarColor:  (value: number): string => {return '#ea8254' },
+    getPointerColor:(value: number): string => {return '#ea8254' },
+    getTickColor: (value: number): string => {return '#22c4a5'}
   };
+
 
 
 

@@ -30,13 +30,13 @@
     ></app-estadisticas>
   </div>
 
-  <ng-container *ngFor="let card of arrayTarjetas">
+  <ng-container *ngFor="let card of arrayTarjetas.reverse()">
     <app-card
-      class="card"
       [dataApi]="card"
       [stats]="objetoEstadisticas"
       (favoritos)="anclar($event)"
       *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
+      [ngClass]="card.favorito ? 'card fav' : 'card'"
     ></app-card>
   </ng-container>
 </div>

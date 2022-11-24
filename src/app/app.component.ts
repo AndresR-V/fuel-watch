@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarburantesService } from'./services/carburantes.service';
 import { CrudService } from './services/crud.service';
+import {CookieService} from 'ngx-cookie-service';
 
 interface Tarjeta{
   id: string;
@@ -47,8 +48,13 @@ export class AppComponent implements OnInit {
   public itemBusqueda:string ="";
   public combustiblesMostrar:boolean[]=[true,true,true,true]
 
+  // guarda la lista de id_ss favoritas
   public arrayFavoritos:string[] = [];
-  // public  arrayFavoritos = ['275', '335'];
+
+  // public  arrayFavoritos = ["275","335","14482","14483"];
+
+  public datosaconsultaFavoritos:any;
+
   public rangosPrecio = {
     target: 0,
     min: 0,
@@ -63,7 +69,17 @@ public listaLocaliades:any[] = [];
 
 
 
-  constructor(private crudService:CrudService) {
+
+  constructor(private crudService:CrudService, private cookieService: CookieService) {
+
+    let cookie = this.cookieService.get('favoritos');
+    if(cookie){
+      for (let fav of JSON.parse(cookie) ){
+        this.arrayFavoritos.push(fav);
+      }
+    }
+
+
 
   }
 
@@ -123,8 +139,9 @@ ubicacionABuscar(Item_busqueda: string) {
 
 
 
-
-  this.refresh_cards();
+  this.arrayTarjetas=[];
+  this.obtenerFavoritos();
+  this.refresh_cards(this.datosConsulta);
 
 });
 
@@ -133,16 +150,17 @@ ubicacionABuscar(Item_busqueda: string) {
 
 
 
-public async refresh_cards(){
+public async refresh_cards( datosConsulta:any , fav=false){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
-  this.arrayTarjetas=[];
-  this.listadoMarcas =[];
+  if(!fav) this.listadoMarcas =[];
 
 
-  for (const n of Object.keys(this.datosConsulta)) {
 
-    if (!this.listadoMarcas.includes( this.datosConsulta[n]["rotulo"] )) this.listadoMarcas.push(this.datosConsulta[n]["rotulo"]);
+  for (const n of Object.keys(datosConsulta)) {
+
+
+    if (!this.listadoMarcas.includes( datosConsulta[n]["rotulo"] )) this.listadoMarcas.push(datosConsulta[n]["rotulo"]);
     let target = "";
 
     switch (this.rangosPrecio.target){
@@ -167,32 +185,42 @@ public async refresh_cards(){
 
 
     if(
-      this.datosConsulta[n][target] != 0 &&
-      this.datosConsulta[n][target] >= this.rangosPrecio.min &&
-      this.datosConsulta[n][target] <= this.rangosPrecio.max
+      datosConsulta[n][target] != 0 &&
+      datosConsulta[n][target] >= this.rangosPrecio.min &&
+      datosConsulta[n][target] <= this.rangosPrecio.max
       ){
 
 
-      this.arrayTarjetas.push(
+
+
+        this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta => tarjeta.id != datosConsulta[n]["id_ss"]);
+
+
+
+
+
+
+        console.log('this.arrayTarjetas.length: '+this.arrayTarjetas.length)
+
+        this.arrayTarjetas.push(
         {
-          id: this.datosConsulta[n]["id_ss"],
-          rotulo: this.datosConsulta[n]["rotulo"],
+          id: datosConsulta[n]["id_ss"],
+          rotulo:datosConsulta[n]["rotulo"],
           precios: [
-                        { tipo: "Diesel",       precio:  this.datosConsulta[n]["precio_diesel"],       show:this.combustiblesMostrar[0] },
-                        { tipo: "Diesel +",     precio:  this.datosConsulta[n]["precio_diesel_extra"], show:this.combustiblesMostrar[1]  },
-                        { tipo: "Gasolina 95",  precio:  this.datosConsulta[n]["precio_gasolina_95"],  show:this.combustiblesMostrar[2] },
-                        { tipo: "Gasolina 98",  precio:  this.datosConsulta[n]["precio_gasolina_98"],  show:this.combustiblesMostrar[3] },
+                        { tipo: "Diesel",       precio:  datosConsulta[n]["precio_diesel"],       show:this.combustiblesMostrar[0] },
+                        { tipo: "Diesel +",     precio:  datosConsulta[n]["precio_diesel_extra"], show:this.combustiblesMostrar[1]  },
+                        { tipo: "Gasolina 95",  precio:  datosConsulta[n]["precio_gasolina_95"],  show:this.combustiblesMostrar[2] },
+                        { tipo: "Gasolina 98",  precio:  datosConsulta[n]["precio_gasolina_98"],  show:this.combustiblesMostrar[3] },
                       ],
-        direccion:this.datosConsulta[n]['direccion'],
-        horario:this.datosConsulta[n]['horario'],
-        longitud:this.datosConsulta[n]['longitud'].replace(",", "."),
-        latitud:this.datosConsulta[n]['latitud'].replace(",", "."),
-        historico: this.formatearHistorico(this.datosConsulta[n]["historico"]),
-        favorito: this.arrayFavoritos.includes(this.datosConsulta[n]["id_ss"])
+        direccion:datosConsulta[n]['direccion'],
+        horario:datosConsulta[n]['horario'],
+        longitud:datosConsulta[n]['longitud'].replace(",", "."),
+        latitud:datosConsulta[n]['latitud'].replace(",", "."),
+        historico: this.formatearHistorico(datosConsulta[n]["historico"]),
+        favorito: this.arrayFavoritos.includes(datosConsulta[n]["id_ss"])
         }
-
-
       );
+
   }
 
   }
@@ -321,20 +349,28 @@ items_to_Show(combustibles:any){
     this.combustiblesMostrar [2] = combustibles['gasolina95'];
     this.combustiblesMostrar [3] = combustibles['gasolina98'];
 
-    if (this.itemBusqueda!="")  this.refresh_cards();
+    if (this.itemBusqueda!="")  this.refresh_cards(this.datosConsulta);
     console.log("combustiblesMostrar: "+this.combustiblesMostrar)
 }
 
 anclar(favorito:any){
   console.log("favorito "+ favorito.active);
+
   if(favorito.active){
     if(!this.arrayFavoritos.includes(favorito.id)) this.arrayFavoritos.push(favorito.id)
   }else{
     this.arrayFavoritos = this.arrayFavoritos.filter(item => item!=favorito.id);
+    this.refresh_cards(this.datosConsulta);
+
 
   }
-  // console.log(this.arrayFavoritos);
-  // this.refresh_cards();
+  // this.obtenerFavoritos();
+  // this.arrayTarjetas=[];
+   this.obtenerFavoritos();
+
+
+  console.log("array favoritos: "+this.arrayFavoritos);
+
 
 }
 
@@ -346,7 +382,7 @@ rangoMostrar(rango:any){
   this.rangosPrecio.max = rango.max;
   // console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
 
-  if (this.itemBusqueda!="") this.refresh_cards();
+  if (this.itemBusqueda!="") this.refresh_cards(this.datosConsulta);
 
 
 }
@@ -380,12 +416,13 @@ async ngOnInit() {
     this.userLocation).subscribe(result=> {
       this.UbicacionABuscar = Object.values(result)[0];
       console.log('this.UbicacionABuscar_  '+Object.values(result)[0])
+      this.obtenerFavoritos();
       this.ubicacionABuscar(this.UbicacionABuscar);
     });
 
   // Se obtiene el listadod e localidades de la Buscando
 
-  this.crudService.obtenerListaLocalidades().subscribe(result=> {
+  await this.crudService.obtenerListaLocalidades().subscribe(result=> {
     this.listaLocaliades = [];
 
     for (let i = 0; i < Object.keys(result).length; i++) {
@@ -395,11 +432,26 @@ async ngOnInit() {
 
   });
 
-  // se obtiene los favoritos
-  this.crudService.obtenerFavoritos(this.arrayFavoritos).subscribe(result=> {
-    console.log(result);
-  });
-}
+
+
+  }
+
+
+obtenerFavoritos(){
+    // se obtiene los favoritos
+    this.crudService.obtenerFavoritos(this.arrayFavoritos).subscribe(result=> {
+      this.datosaconsultaFavoritos=[]
+      console.log('this.datosaconsultaFavoritos: '+this.datosaconsultaFavoritos)
+      this.datosaconsultaFavoritos = Object.values(result);
+
+      this.refresh_cards(this.datosaconsultaFavoritos, true);
+
+      // guardamos el archivo de cookies
+
+      this.cookieService.set('favoritos', JSON.stringify(this.arrayFavoritos),365);
+
+    });
+  }
 
 
 seleccionarMarca(event:any){

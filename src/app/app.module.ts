@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-// import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NgxChartsModule,
 
   ],
-  providers: [CarburantesService],
+  providers: [CarburantesService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
