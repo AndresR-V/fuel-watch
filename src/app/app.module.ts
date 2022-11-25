@@ -42,7 +42,6 @@ import { CookieService } from 'ngx-cookie-service';
     MatCardModule,
     MatToolbarModule,
     MatCheckboxModule,
-    BrowserAnimationsModule,
     NgxChartsModule,
 
   ],

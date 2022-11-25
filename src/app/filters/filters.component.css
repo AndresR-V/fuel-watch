@@ -1,13 +1,4 @@
 
-
-::ng-deep :root {
-  --fondo-oscuro  : #333f50;
-  --fondo-claro   : #f2f2f2;
-  --acento-naranja: #ea8254;
-  --acento-verde  : #22c4a5;
-}
-
-
 .form-filter{
   width: 100%;
   max-width: 800px;
@@ -108,4 +99,26 @@ select {
 ngx-slider{
   width:93%;
   margin: 1rem 1rem;
+}
+
+
+/* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
+@media screen and (max-width:600px) {
+  select {
+    width: 90%;
+  }
+
+
+  .container-slider{
+
+    display:flex;
+    flex-direction:column;
+
+  }
+
+  .wrapper{
+    display:block;
+    margin:15px 0 ;
+   }
+
 }

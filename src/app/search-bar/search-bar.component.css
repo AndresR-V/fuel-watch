@@ -1,10 +1,4 @@
 
-::ng-deep :root {
-  --fondo-oscuro  : #333f50;
-  --fondo-claro   : #f2f2f2;
-  --acento-naranja: #ea8254;
-  --acento-verde  : #22c4a5;
-}
 
 .formSearchBar{
   display:flex;
@@ -13,7 +7,7 @@
 }
 
 .search-container{
- margin-top:40px;
+ margin-top:20px;
   width: 55%;
 
 }
@@ -54,4 +48,17 @@ display:none;
 
 .sugerencias:hover{
   background-color:#e8f0fe;
+}
+
+
+/* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
+@media screen and (max-width:600px) {
+
+  .search-container{
+     width: 95%;
+   }
+
+   .search-container #buscar{
+    width: 80px;
+   }
 }

@@ -1,16 +1,5 @@
 
 
-::ng-deep :root {
-  --fondo-oscuro  : #333f50;
-  --fondo-claro   : #f2f2f2;
-  --acento-naranja: #ea8254;
-  --acento-verde  : #22c4a5;
-}
-
-::ng-deep body{  background-color:var(--fondo-claro);
-}
-
-
 /* HEADER { logo , filtros , buscador} */
 #header-container{
 margin:0;
@@ -30,6 +19,7 @@ background-color: var(--fondo-oscuro);
   padding-left: 250px;
   display: flex;
   justify-content: center;
+  margin-bottom:40px;
 
 }
 
@@ -43,25 +33,21 @@ background-color: var(--fondo-oscuro);
   background-color:#e8f0fe;
   color:#94989a;
   margin-bottom: 20px;
-  margin-top:-20px;
+  margin-top:-10px;
 
 }
 
-#main-container .logo{
+.logo{
   max-width: 200px;
-  /* position: absolute; */
-  margin-top: -180px;
-  margin-left: -250px;
-  padding-top:23px;
-  padding-left:10px;
-  top:0;
-  left:0;
-  position:sticky;
+  position: absolute;
+  /* position:sticky; */
   z-index: 100;
 
+  top: 100px;
+
 
 }
-#main-container .logo img{
+.logo img{
   width: 100%;
   height: auto;
 
@@ -92,7 +78,6 @@ background-color: var(--fondo-oscuro);
   position: sticky;
   top: 0;
 
-
 }
 
 #main-container  .card{
@@ -108,3 +93,44 @@ background-color: var(--fondo-oscuro);
 #main-container  .fav{
   background-color:rgb(220, 242, 255);
 }
+
+#main-container {
+  animation: fadeIn .8 linear;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+
+
+/* MEDIA QUERY PARA PANTALLAS INTERMEDIAS */
+@media screen and (max-width:900px) {
+  #header-container{
+    flex-flow: column wrap;
+    margin:0;
+  }
+  #header-container  app-filters{
+    padding:10px;
+    padding-right: 30px;
+    width: 97%;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    background-color: var(--fondo-oscuro);
+    }
+
+    #header-container app-search-bar{
+      width: 140%;
+
+    }
+
+    .logo{
+      display:none;
+    }
+
+  }
+
+
+

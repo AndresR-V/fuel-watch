@@ -1,4 +1,7 @@
 <!-- <h2>{{ title }}</h2> -->
+<figure class="logo">
+  <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
+</figure>
 
 <div id="header-container">
   <app-filters
@@ -12,10 +15,6 @@
 </div>
 
 <div id="main-container" class="container-fluid">
-  <figure class="logo">
-    <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
-  </figure>
-
   <app-search-bar
     (searchValue)="ubicacionABuscar($event)"
     [ubicacion]="UbicacionABuscar"
@@ -37,6 +36,7 @@
       (favoritos)="anclar($event)"
       *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
       [ngClass]="card.favorito ? 'card fav' : 'card'"
-    ></app-card>
+    >
+    </app-card>
   </ng-container>
 </div>

@@ -11,11 +11,10 @@ interface Tarjeta{
   horario?:string;
   longitud:string;
   latitud:string;
+  localidad?:string;
   historico:any;
   favorito?:boolean;
 }
-
-
 
 
 @Component({
@@ -153,54 +152,27 @@ ubicacionABuscar(Item_busqueda: string) {
 public async refresh_cards( datosConsulta:any , fav=false){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
-  if(!fav) this.listadoMarcas =[];
+  if(!fav){
+    this.listadoMarcas =[];
 
+  }
 
 
   for (const n of Object.keys(datosConsulta)) {
 
-
     if (!this.listadoMarcas.includes( datosConsulta[n]["rotulo"] )) this.listadoMarcas.push(datosConsulta[n]["rotulo"]);
-    let target = "";
 
-    switch (this.rangosPrecio.target){
-      case 0:
-        target = "precio_diesel";
-        break;
-      case 1:
-        target = "precio_diesel_extra";
-        break;
-      case 2:
-        target = "precio_gasolina_95";
-        break;
-      case 3:
-        target = "precio_gasolina_98";
-        break;
-    }
-    // compropbamos rango precios:
-
-    // console.log(" [target] ="+ target)
-    // console.log(" this.rangosPrecio.min ="+ this.rangosPrecio.min)
-    // console.log(" this.rangosPrecio.max ="+ this.rangosPrecio.max)
+    this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta => tarjeta.id != datosConsulta[n]["id_ss"]);
 
 
-    if(
-      datosConsulta[n][target] != 0 &&
-      datosConsulta[n][target] >= this.rangosPrecio.min &&
-      datosConsulta[n][target] <= this.rangosPrecio.max
-      ){
+        // for(let tarjeta of this.arrayTarjetas){
+        //   if(datosConsulta[n]["id_ss"] == tarjeta.id){
+        //     datosConsulta[n]["id_ss"] == null;
+        //   }
+        // }
 
+        // if (datosConsulta[n]["id_ss"]){
 
-
-
-        this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta => tarjeta.id != datosConsulta[n]["id_ss"]);
-
-
-
-
-
-
-        console.log('this.arrayTarjetas.length: '+this.arrayTarjetas.length)
 
         this.arrayTarjetas.push(
         {
@@ -216,15 +188,37 @@ public async refresh_cards( datosConsulta:any , fav=false){
         horario:datosConsulta[n]['horario'],
         longitud:datosConsulta[n]['longitud'].replace(",", "."),
         latitud:datosConsulta[n]['latitud'].replace(",", "."),
+        localidad:datosConsulta[n]['localidad'],
         historico: this.formatearHistorico(datosConsulta[n]["historico"]),
         favorito: this.arrayFavoritos.includes(datosConsulta[n]["id_ss"])
         }
       );
 
-  }
+        // se filtran las tarjetas fuera del rango seleccionado en el slider
+      this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta =>
+        tarjeta.precios[this.rangosPrecio.target].precio > this.rangosPrecio.min &&
+        tarjeta.precios[this.rangosPrecio.target].precio < this.rangosPrecio.max
+        );
+
+
+        // se filtran las tarjetas cullos precios estén desmarcados o sean 0
+        this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta =>
+          ( tarjeta.precios[0].show && tarjeta.precios[0].precio > 0 ) ||
+          (tarjeta.precios[1].show && tarjeta.precios[1].precio > 0 ) ||
+          (tarjeta.precios[2].show && tarjeta.precios[2].precio > 0 ) ||
+          (tarjeta.precios[3].show && tarjeta.precios[3].precio > 0 )
+          );
+
+
+
+
 
   }
+
+  // }
 }
+
+
 
 
 
@@ -349,8 +343,14 @@ items_to_Show(combustibles:any){
     this.combustiblesMostrar [2] = combustibles['gasolina95'];
     this.combustiblesMostrar [3] = combustibles['gasolina98'];
 
-    if (this.itemBusqueda!="")  this.refresh_cards(this.datosConsulta);
-    console.log("combustiblesMostrar: "+this.combustiblesMostrar)
+    if (this.itemBusqueda!=""){
+      this.arrayTarjetas=[];
+      this.obtenerFavoritos();
+      this.refresh_cards(this.datosConsulta);
+
+    }
+    // console.log("combustiblesMostrar: "+this.combustiblesMostrar)
+
 }
 
 anclar(favorito:any){
@@ -382,7 +382,22 @@ rangoMostrar(rango:any){
   this.rangosPrecio.max = rango.max;
   // console.log("rango=>  target:"+ this.rangosPrecio.target+" min:"+rango.min+" max:"+rango.max);
 
-  if (this.itemBusqueda!="") this.refresh_cards(this.datosConsulta);
+  if (this.itemBusqueda!="") {
+
+    // alert(this.arrayTarjetas[1].precios[0].precio);
+    // this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta =>
+    //   tarjeta.precios[this.rangosPrecio.target].precio > this.rangosPrecio.min &&
+    //   tarjeta.precios[this.rangosPrecio.target].precio < this.rangosPrecio.m
+    //   );
+
+
+    this.arrayTarjetas=[];
+    this.obtenerFavoritos();
+    this.refresh_cards(this.datosConsulta);
+
+
+    console.log("this.arrayTarjetas   "+this.arrayTarjetas)
+  }
 
 
 }
@@ -441,7 +456,6 @@ obtenerFavoritos(){
     // se obtiene los favoritos
     this.crudService.obtenerFavoritos(this.arrayFavoritos).subscribe(result=> {
       this.datosaconsultaFavoritos=[]
-      console.log('this.datosaconsultaFavoritos: '+this.datosaconsultaFavoritos)
       this.datosaconsultaFavoritos = Object.values(result);
 
       this.refresh_cards(this.datosaconsultaFavoritos, true);

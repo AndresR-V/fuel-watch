@@ -1,6 +1,9 @@
 <!-- <div [ngClass]="{ anclado: dataApi.favorito }"> -->
+
 <div class="card-title" id="{{ dataApi.id }}">
-  <h5 tabindex="0" class="rotulo">{{ dataApi.rotulo }}</h5>
+  <h5 tabindex="0" class="rotulo" title="{{ dataApi.localidad }}">
+    {{ dataApi.rotulo }}
+  </h5>
 
   <i
     (click)="anclar($event)"
@@ -77,7 +80,13 @@
 </div>
 
 <div class="direccion">
-  <h6 tabindex="tabindex">{{ dataApi.direccion }}</h6>
+  <h6 tabindex="tabindex ">
+    <ng-container *ngIf="dataApi.favorito">
+      <strong>{{ dataApi.localidad }} - </strong>
+    </ng-container>
+
+    {{ dataApi.direccion }}
+  </h6>
 
   <a
     tabindex="0"
