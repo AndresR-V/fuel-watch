@@ -1,32 +1,32 @@
-<!-- <div [ngClass]="{ anclado: dataApi.favorito }"> -->
+<!-- <div [ngClass]="{ anclado: dataApi?.favorito }"> -->
 
-<div class="card-title" id="{{ dataApi.id }}">
-  <h5 tabindex="0" class="rotulo" title="{{ dataApi.localidad }}">
-    {{ dataApi.rotulo }}
+<div class="card-title" id="{{ dataApi?.id }}">
+  <h5 tabindex="0" class="rotulo" title="{{ dataApi?.localidad }}">
+    {{ dataApi?.rotulo }}
   </h5>
 
   <i
     (click)="anclar($event)"
     [class]="
-      dataApi.favorito ? 'fa-2x candado-anclado' : 'fa-2x text-secondary'
+      dataApi?.favorito ? 'fa-2x candado-anclado' : 'fa-2x text-secondary'
     "
     tabindex="0"
   >
-    <fa-icon [icon]="dataApi.favorito ? faLock : faLockOpen"></fa-icon
+    <fa-icon [icon]="dataApi?.favorito ? faLock : faLockOpen"></fa-icon
   ></i>
 </div>
 <div class="card-body">
   <figure>
     <img
       class="logo"
-      src="../../assets/images/logos/{{ dataApi.rotulo }}.svg"
+      src="../../assets/images/logos/{{ dataApi?.rotulo }}.svg"
       onerror="this.src= '../../assets/images/logos/GAS.svg'"
       alt="Logo empresa EESS"
     />
   </figure>
 
   <div class="precios">
-    <ng-container *ngFor="let precio of dataApi.precios; index as i">
+    <ng-container *ngFor="let precio of dataApi?.precios; index as i">
       <p *ngIf="precio.show && precio.precio > 0">
         <!-- evaluamos si el tipo de combiustible se debe mostrar -->
 
@@ -81,11 +81,11 @@
 
 <div class="direccion">
   <h6 tabindex="tabindex ">
-    <ng-container *ngIf="dataApi.favorito">
-      <strong>{{ dataApi.localidad }} - </strong>
+    <ng-container *ngIf="dataApi?.favorito">
+      <strong>{{ dataApi?.localidad }} - </strong>
     </ng-container>
 
-    {{ dataApi.direccion }}
+    {{ dataApi?.direccion }}
   </h6>
 
   <a
@@ -93,15 +93,15 @@
     title="Abrir en GoogleMaps"
     class="fa-2x text-black"
     target="_blank"
-    href="https://www.google.com/maps/?q={{ dataApi.latitud }},{{
-      dataApi.longitud
+    href="https://www.google.com/maps/?q={{ dataApi?.latitud }},{{
+      dataApi?.longitud
     }}"
   >
     <fa-icon [icon]="faLocation"></fa-icon>
   </a>
 </div>
 
-<p tabindex="0" class="horario">{{ dataApi.horario }}</p>
+<p tabindex="0" class="horario">{{ dataApi?.horario }}</p>
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>
@@ -121,7 +121,7 @@
         [yAxisLabel]="'Precio'"
         [timeline]="true"
         [autoScale]="true"
-        [results]="dataApi.historico"
+        [results]="dataApi?.historico"
         [scheme]="colorScheme"
       >
       </ngx-charts-line-chart>

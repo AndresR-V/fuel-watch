@@ -25,7 +25,7 @@ interface Tarjeta{
 
 
 export class AppComponent implements OnInit {
-  title = 'Fuel-Watch';
+  title = 'FuelWatch';
   apiData : any;
 
   public userLocation?:[number,number];
@@ -66,7 +66,7 @@ public historico:any=[];
 public listaLocaliades:any[] = [];
 
 
-
+public loadCompleted:boolean = false;
 
 
   constructor(private crudService:CrudService, private cookieService: CookieService) {
@@ -91,7 +91,7 @@ ubicacionABuscar(Item_busqueda: string) {
   this.UbicacionABuscar = Item_busqueda.toUpperCase();
   console.log("Buscando...");
 
-
+  this.loadCompleted = false;
 
 
   // console.log("this.estadicas"+this.estadisticas);
@@ -102,6 +102,9 @@ ubicacionABuscar(Item_busqueda: string) {
     // obtiene datos de estadisticas
   this.crudService.EstadisticasDeUbicacion(
     this.UbicacionABuscar).subscribe(result => {
+
+      if ( result['estadisticas'][this.UbicacionABuscar]){
+
 
       // datos de estadísticas
     this.estadisticas = result['estadisticas'][this.UbicacionABuscar];
@@ -126,36 +129,41 @@ ubicacionABuscar(Item_busqueda: string) {
       this.precioMax = this.estadisticas['general']['max'];
 
 
-
+    }
 
   });
 
 
   // datos estadciones de servicio
+
+  if (result['eess']){
+
+
   this.datosConsulta = result['eess'];
-
-
-
-
 
   this.arrayTarjetas=[];
   this.obtenerFavoritos();
   this.refresh_cards(this.datosConsulta);
+}
+},
 
-});
+(error) => console.error(error),
+() => {this.loadCompleted = true});
 
 
 }
 
 
 
-public async refresh_cards( datosConsulta:any , fav=false){
+public async refresh_cards( datosConsulta?:any , fav=false){
 
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   if(!fav){
     this.listadoMarcas =[];
 
   }
+
+  if(datosConsulta){
 
 
   for (const n of Object.keys(datosConsulta)) {
@@ -214,7 +222,7 @@ public async refresh_cards( datosConsulta:any , fav=false){
 
 
   }
-
+}
   // }
 }
 
@@ -222,7 +230,10 @@ public async refresh_cards( datosConsulta:any , fav=false){
 
 
 
-formatearHistorico(datos_historico:any) {
+formatearHistorico(datos_historico?:any) {
+
+
+
   const seriesDiesel     = [];
   const seriesDieselplus = [];
   const seriesGasolina95 = [];
@@ -234,6 +245,7 @@ formatearHistorico(datos_historico:any) {
   let gasolina95Existe= true;
   let gasolina98Existe= true;
 
+  if (datos_historico){
   // console.log('Object.keys(this.datosConsulta).length: '+Object.keys(this.datosConsulta).length)
 
   for (const n of Object.keys(datos_historico)) {
@@ -278,7 +290,7 @@ formatearHistorico(datos_historico:any) {
     //
   }
   }
-
+}
 
   if(dieselplusExiste){
     arrayhistorico.push(
@@ -334,9 +346,10 @@ formatearHistorico(datos_historico:any) {
 
 
 
-items_to_Show(combustibles:any){
+items_to_Show(combustibles?:any){
 
-  console.log(combustibles);
+  if(combustibles){
+    console.log(combustibles);
 
     this.combustiblesMostrar [0] = combustibles['diesel'];
     this.combustiblesMostrar [1] = combustibles['dieselPlus'];
@@ -350,6 +363,8 @@ items_to_Show(combustibles:any){
 
     }
     // console.log("combustiblesMostrar: "+this.combustiblesMostrar)
+  }
+
 
 }
 
@@ -424,31 +439,44 @@ async ngOnInit() {
 
 
 // obtenemos la ubicacion del navegador del
+
+  await this.obtenerFavoritos();
+
   await this.getUserLocation();
   // alert(this.userLocation);
 
   await this.crudService.BuscarPorCoordenadas(
-    this.userLocation).subscribe(result=> {
-      this.UbicacionABuscar = Object.values(result)[0];
-      console.log('this.UbicacionABuscar_  '+Object.values(result)[0])
-      this.obtenerFavoritos();
-      this.ubicacionABuscar(this.UbicacionABuscar);
-    });
+    this.userLocation).subscribe(
+      result=> {
+
+      if( Object.values(result)[0]){
+        this.UbicacionABuscar = Object.values(result)[0];
+
+        console.log('this.UbicacionABuscar_  '+ Object.values(result)[0])
+
+        this.ubicacionABuscar(this.UbicacionABuscar);
+      }
+    }
+
+    );
+
 
   // Se obtiene el listadod e localidades de la Buscando
+
 
   await this.crudService.obtenerListaLocalidades().subscribe(result=> {
     this.listaLocaliades = [];
 
-    for (let i = 0; i < Object.keys(result).length; i++) {
-      this.listaLocaliades.push(Object.values(result)[i]['localidad']);
+    if ( Object.keys(result)){
+      for (let i = 0; i < Object.keys(result).length; i++) {
+        this.listaLocaliades.push(Object.values(result)[i]['localidad']);
+      }
     }
 
 
-  });
 
-
-
+  }
+  )
   }
 
 
@@ -456,21 +484,31 @@ obtenerFavoritos(){
     // se obtiene los favoritos
     this.crudService.obtenerFavoritos(this.arrayFavoritos).subscribe(result=> {
       this.datosaconsultaFavoritos=[]
-      this.datosaconsultaFavoritos = Object.values(result);
 
-      this.refresh_cards(this.datosaconsultaFavoritos, true);
+      if (Object.values(result)){
+        this.datosaconsultaFavoritos = Object.values(result);
 
-      // guardamos el archivo de cookies
+        this.refresh_cards(this.datosaconsultaFavoritos, true);
 
-      this.cookieService.set('favoritos', JSON.stringify(this.arrayFavoritos),365);
+        // guardamos el archivo de cookies
 
-    });
+        this.cookieService.set('favoritos', JSON.stringify(this.arrayFavoritos),365);
+
+      }
+
+    },
+
+    (error) => console.error(error),
+);
   }
 
 
-seleccionarMarca(event:any){
-  console.log('this.marcaSeleccionada: '+event.target.value)
-  this.marcaSeleccionada = event.target.value;
+seleccionarMarca(event?:any){
+  if (event.target){
+    console.log('this.marcaSeleccionada: '+event.target.value)
+    this.marcaSeleccionada = event.target.value;
+  }
+
 }
 
 }

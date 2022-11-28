@@ -14,3 +14,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Lato, Roboto, Montserrat, "Helvetica Neue", sans-serif; }
 
+
+
+.seo{
+  display: none;
+}

@@ -18,7 +18,6 @@ interface Bruto{
 export class CarburantesService {
 
   private bruto: Bruto = { Fecha: "", ListaEESSPrecio: "", Nota: "", ResultadoConsulta: "" };
-  private ChuckUrl = "https://api.chucknorris.io/jokes/random"; // URL to web api
   private url:string = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/";
   corsHeaders;
 

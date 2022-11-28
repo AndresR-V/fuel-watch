@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators'
 export class CrudService {
 corsHeaders;
 API: string = 'http://localhost/FuelWatch_php/BackEnd/crud.php'
+//API: string = '../BackEnd/crud.php'
 
 constructor( private http:HttpClient) {
   this.corsHeaders = new HttpHeaders({

@@ -1,4 +1,4 @@
-<!-- <h2>{{ title }}</h2> -->
+<h1 class="seo">{{ title }}</h1>
 <figure class="logo">
   <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
 </figure>
@@ -29,14 +29,16 @@
     ></app-estadisticas>
   </div>
 
-  <ng-container *ngFor="let card of arrayTarjetas.reverse()">
-    <app-card
-      [dataApi]="card"
-      [stats]="objetoEstadisticas"
-      (favoritos)="anclar($event)"
-      *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
-      [ngClass]="card.favorito ? 'card fav' : 'card'"
-    >
-    </app-card>
+  <ng-container *ngIf="loadCompleted">
+    <ng-container *ngFor="let card of arrayTarjetas.reverse()">
+      <app-card
+        [dataApi]="card"
+        [stats]="objetoEstadisticas"
+        (favoritos)="anclar($event)"
+        *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
+        [ngClass]="card.favorito ? 'card fav' : 'card'"
+      >
+      </app-card>
+    </ng-container>
   </ng-container>
 </div>
