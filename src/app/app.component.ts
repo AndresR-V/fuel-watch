@@ -65,8 +65,8 @@ public historico:any=[];
 
 public listaLocaliades:any[] = [];
 
-
 public loadCompleted:boolean = false;
+
 
 
   constructor(private crudService:CrudService, private cookieService: CookieService) {
@@ -91,7 +91,7 @@ ubicacionABuscar(Item_busqueda: string) {
   this.UbicacionABuscar = Item_busqueda.toUpperCase();
   console.log("Buscando...");
 
-  this.loadCompleted = false;
+
 
 
   // console.log("this.estadicas"+this.estadisticas);
@@ -131,7 +131,10 @@ ubicacionABuscar(Item_busqueda: string) {
 
     }
 
-  });
+  },
+
+  (completed) => {this.loadCompleted=true}
+  );
 
 
   // datos estadciones de servicio
@@ -145,10 +148,7 @@ ubicacionABuscar(Item_busqueda: string) {
   this.obtenerFavoritos();
   this.refresh_cards(this.datosConsulta);
 }
-},
-
-(error) => console.error(error),
-() => {this.loadCompleted = true});
+});
 
 
 }
@@ -160,7 +160,6 @@ public async refresh_cards( datosConsulta?:any , fav=false){
   // se prodece a vaciar el array de taarjetas para no duplicar datos
   if(!fav){
     this.listadoMarcas =[];
-
   }
 
   if(datosConsulta){
@@ -224,6 +223,8 @@ public async refresh_cards( datosConsulta?:any , fav=false){
   }
 }
   // }
+
+
 }
 
 
@@ -363,8 +364,8 @@ items_to_Show(combustibles?:any){
 
     }
     // console.log("combustiblesMostrar: "+this.combustiblesMostrar)
-  }
 
+  }
 
 }
 
@@ -438,16 +439,15 @@ async ngOnInit() {
 
 
 
+// se obtienen los favoritso guardados para
+  this.obtenerFavoritos();
+
 // obtenemos la ubicacion del navegador del
-
-  await this.obtenerFavoritos();
-
   await this.getUserLocation();
   // alert(this.userLocation);
 
   await this.crudService.BuscarPorCoordenadas(
-    this.userLocation).subscribe(
-      result=> {
+    this.userLocation).subscribe(result=> {
 
       if( Object.values(result)[0]){
         this.UbicacionABuscar = Object.values(result)[0];
@@ -456,9 +456,7 @@ async ngOnInit() {
 
         this.ubicacionABuscar(this.UbicacionABuscar);
       }
-    }
-
-    );
+    });
 
 
   // Se obtiene el listadod e localidades de la Buscando
@@ -475,8 +473,10 @@ async ngOnInit() {
 
 
 
-  }
-  )
+  });
+
+
+
   }
 
 
@@ -496,10 +496,7 @@ obtenerFavoritos(){
 
       }
 
-    },
-
-    (error) => console.error(error),
-);
+    });
   }
 
 
