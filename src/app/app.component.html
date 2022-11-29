@@ -29,8 +29,21 @@
     ></app-estadisticas>
   </div>
 
-  <ng-container *ngIf="loadCompleted">
-    <ng-container *ngFor="let card of arrayTarjetas.reverse()">
+  <ng-container *ngFor="let card of arrayTarjetas.reverse()">
+    <ng-container *ngIf="card.favorito">
+      <app-card
+        [dataApi]="card"
+        [stats]="objetoEstadisticas"
+        (favoritos)="anclar($event)"
+        *ngIf="card.rotulo == marcaSeleccionada || marcaSeleccionada == 'TODAS'"
+        [ngClass]="card.favorito ? 'card fav' : 'card'"
+      >
+      </app-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngFor="let card of arrayTarjetas.reverse()">
+    <ng-container *ngIf="!card.favorito">
       <app-card
         [dataApi]="card"
         [stats]="objetoEstadisticas"

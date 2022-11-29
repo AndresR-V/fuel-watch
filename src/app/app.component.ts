@@ -132,8 +132,9 @@ ubicacionABuscar(Item_busqueda: string) {
     }
 
   },
+  (error) => console.error(error),
+  () => {this.loadCompleted = true}
 
-  (completed) => {this.loadCompleted=true}
   );
 
 
@@ -157,7 +158,7 @@ ubicacionABuscar(Item_busqueda: string) {
 
 public async refresh_cards( datosConsulta?:any , fav=false){
 
-  // se prodece a vaciar el array de taarjetas para no duplicar datos
+  // se prodece a vaciar el array de tarjetas para no duplicar datos
   if(!fav){
     this.listadoMarcas =[];
   }
@@ -170,15 +171,6 @@ public async refresh_cards( datosConsulta?:any , fav=false){
     if (!this.listadoMarcas.includes( datosConsulta[n]["rotulo"] )) this.listadoMarcas.push(datosConsulta[n]["rotulo"]);
 
     this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta => tarjeta.id != datosConsulta[n]["id_ss"]);
-
-
-        // for(let tarjeta of this.arrayTarjetas){
-        //   if(datosConsulta[n]["id_ss"] == tarjeta.id){
-        //     datosConsulta[n]["id_ss"] == null;
-        //   }
-        // }
-
-        // if (datosConsulta[n]["id_ss"]){
 
 
         this.arrayTarjetas.push(
@@ -201,6 +193,8 @@ public async refresh_cards( datosConsulta?:any , fav=false){
         }
       );
 
+
+
         // se filtran las tarjetas fuera del rango seleccionado en el slider
       this.arrayTarjetas = this.arrayTarjetas.filter(tarjeta =>
         tarjeta.precios[this.rangosPrecio.target].precio > this.rangosPrecio.min &&
@@ -222,7 +216,7 @@ public async refresh_cards( datosConsulta?:any , fav=false){
 
   }
 }
-  // }
+
 
 
 }
@@ -439,7 +433,7 @@ async ngOnInit() {
 
 
 
-// se obtienen los favoritso guardados para
+  // se obtienen los favoritso guardados
   this.obtenerFavoritos();
 
 // obtenemos la ubicacion del navegador del
@@ -459,7 +453,7 @@ async ngOnInit() {
     });
 
 
-  // Se obtiene el listadod e localidades de la Buscando
+  // Se obtiene el listado de localidades de la Buscando
 
 
   await this.crudService.obtenerListaLocalidades().subscribe(result=> {

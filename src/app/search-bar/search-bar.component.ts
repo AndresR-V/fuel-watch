@@ -31,6 +31,8 @@ addSugerencia(event:any , sugerenciasDiv:any){
   let existe = false;
   let sugerencia = "";
 
+
+
   for (let item of this.listaLocaliades) {
     if (entrada != "" && item.includes(entrada)) {
       existe = true;

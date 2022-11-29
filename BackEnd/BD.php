@@ -103,23 +103,23 @@ class BD
         $this->conectarBD();
         try {
 
-
-            $sql = "SET @id = '$." . $id_ss . "'; SELECT fecha, JSON_QUERY(datos, @id)  AS precios FROM historico ORDER BY fecha DESC LIMIT 30";
+            $sql = "SELECT fecha, JSON_QUERY(datos, '$." . $id_ss . "')  AS precios FROM historico ORDER BY fecha ASC LIMIT 30;";
             $resultado = $this->con->query($sql);
+            $rows = $resultado->fetchAll();
         } catch (PDOException $e) {
             echo "<br> Error: Error al obtener datos del histórico: " . $e->getMessage();
             file_put_contents("PDOErrors.txt", "\r\n" . date('j F, Y, g:i a ') . $e->getMessage(), FILE_APPEND);
             return false;
         }
         $this->desconectarBD();
-        return $resultado;
+        return $rows;
     }
 
     public function getDatafromLocalidad($localidad)
     {
         $this->conectarBD();
         try {
-            $sql = "SELECT * FROM servicestations WHERE `localidad` like '%$localidad%'";
+            $sql = "SELECT * FROM servicestations WHERE `localidad` like '%$localidad%' ORDER BY cp ASC";
             $resultado = $this->con->query($sql);
             $rows = $resultado->fetchAll();
         } catch (PDOException $e) {
@@ -128,7 +128,9 @@ class BD
             return false;
         }
         $this->desconectarBD();
-        return $rows;
+
+
+        return $this->formatData($rows);
     }
 
 
@@ -138,7 +140,7 @@ class BD
 
         $this->conectarBD();
         try {
-            $sql = "SELECT * FROM servicestations WHERE `cp` like '%$cp%'";
+            $sql = "SELECT * FROM servicestations WHERE `cp` like '%$cp%' ORDER BY cp ASC";
             $resultado = $this->con->query($sql);
             $rows = $resultado->fetchAll();
         } catch (PDOException $e) {
@@ -147,7 +149,8 @@ class BD
             return false;
         }
         $this->desconectarBD();
-        return $rows;
+
+        return $this->formatData($rows);
     }
 
     public function getLocalidadfromCp($target)
@@ -220,22 +223,84 @@ class BD
 
     public function getLocationByCoords($lon, $lat)
     {
-        $longitude = substr(str_replace('.', ',', $lon), 0, -5);
-        $latitude =  substr(str_replace('.', ',', $lat), 0, -5);
+        $longitude = substr(str_replace('.', ',', $lon), 0, -6);
+        $latitude =  substr(str_replace('.', ',', $lat), 0, -6);
 
         $this->conectarBD();
-
-
         try {
             $sql = "SELECT localidad FROM servicestations WHERE longitud LIKE '%$longitude%' AND latitud LIKE '%$latitude%' LIMIT 1";
             $resultado = $this->con->query($sql);
             $r = $resultado->fetch();
         } catch (PDOException $e) {
-            echo "<br> Error: Error al obtener el valor " . $limit . " de " . $price . " : " . $e->getMessage();
+            echo "<br> Error: Error al obtener la localidad : " . $e->getMessage();
             file_put_contents("PDOErrors.txt", "\r\n" . date('j F, Y, g:i a ') . $e->getMessage(), FILE_APPEND);
             return false;
         }
         $this->desconectarBD();
         return $r;
+    }
+
+    public function getFavoritos($favoritos)
+    {
+
+        $this->conectarBD();
+
+        try {
+            $sql = "SELECT * FROM servicestations  WHERE id_ss IN ('"
+                . implode("','",  $favoritos)
+                . "') ORDER BY cp ASC";
+            $resultado = $this->con->query($sql);
+            $rows = $resultado->fetchAll();
+        } catch (PDOException $e) {
+            echo "<br> Error: Error al obtener los favotitos : " . $e->getMessage();
+            file_put_contents("PDOErrors.txt", "\r\n" . date('j F, Y, g:i a ') . $e->getMessage(), FILE_APPEND);
+            return false;
+        }
+        $this->desconectarBD();
+
+        return  $this->formatData($rows);
+    }
+
+    public function getListadoLocaliddes()
+    {
+        $this->conectarBD();
+        try {
+            $sql = "SELECT localidad FROM servicestations ORDER BY localidad DESC";
+            $resultado = $this->con->query($sql);
+            $row = $resultado->fetchAll();
+        } catch (PDOException $e) {
+            echo "<br> Error: Error al obtener las localidades" . $e->getMessage();
+            file_put_contents("PDOErrors.txt", "\r\n" . date('j F, Y, g:i a ') . $e->getMessage(), FILE_APPEND);
+            return false;
+        }
+        $this->desconectarBD();
+        return $row;
+    }
+
+
+    public function formatData($rows)
+    {
+        $array_respuesta = [];
+        $i = 0;
+        foreach ($rows as $row) {
+            // $array_respuesta[$i] =
+            $array_respuesta[$i]["id_ss"] = $row["id_ss"];
+            $array_respuesta[$i]["rotulo"] = $row["rotulo"];
+            $array_respuesta[$i]["horario"] = $row["horario"];
+            $array_respuesta[$i]["precio_diesel"] = $row["precio_diesel"];
+            $array_respuesta[$i]["precio_diesel_extra"] = $row["precio_diesel_extra"];
+            $array_respuesta[$i]["precio_gasolina_95"] = $row["precio_gasolina_95"];
+            $array_respuesta[$i]["precio_gasolina_98"] = $row["precio_gasolina_98"];
+            $array_respuesta[$i]["direccion"] = $row["direccion"];
+            $array_respuesta[$i]["provincia"] = $row["provincia"];
+            $array_respuesta[$i]["localidad"] = $row["localidad"];
+            $array_respuesta[$i]["cp"] = $row["cp"];
+            $array_respuesta[$i]["longitud"] = $row["longitud"];
+            $array_respuesta[$i]["latitud"] = $row["latitud"];
+            $array_respuesta[$i]["fecha_actualizacion"] = $row["fecha_actualizacion"];
+            $array_respuesta[$i++]["historico"] = $this->getHistorico($row['id_ss']);
+        }
+
+        return  $array_respuesta;
     }
 }

@@ -19,7 +19,7 @@ if (isset($_GET["buscar"])) {
 
     if ($target != '') {
 
-        if (is_int((int)$target) && strlen($target) == 5) {
+        if (is_int($target) && strlen($target) == 5) {
             // echo "es un CP";
             $respuesta = $bd->getDatafromCp($target);
         } else {
@@ -28,13 +28,6 @@ if (isset($_GET["buscar"])) {
         }
     }
 
-
-    // var_dump($respuesta);
-    // die();
-
-    // echo json_encode($respuesta, JSON_FORCE_OBJECT);
-
-    // array_push($response, $respuesta);
     $response['eess'] = $respuesta;
 }
 
@@ -68,6 +61,7 @@ if (isset($_GET["actualizar"])) {
             $eess['Longitud (WGS84)'],
             $eess['Latitud'],
             date('Y-m-d H:i:s')
+
         ]);
 
 
@@ -87,12 +81,12 @@ if (isset($_GET["actualizar"])) {
 if (isset($_GET["estadisticas"])) {
     $input = $_GET['target'];
 
-
-    if (is_int((int)$input) && strlen($input) == 5) {
+    if (is_int($input) && strlen($input) == 5) {
         $target = $bd->getLocalidadfromCp($input)[0];
     } else {
         $target = $input;
     }
+
 
 
     $estadisticas[$target] = [];
@@ -122,11 +116,15 @@ if (isset($_GET["estadisticas"])) {
     $gasolina_98["avg"]    =  round($sum_gasolina_98  / ($bd->getPriceCount('precio_gasolina_98', $target))[0], 2);
 
 
+    $general["min"]   =  min(array($diesel["min"], $diesel_extra["min"], $gasolina_95["min"],  $gasolina_98["min"]));
+    $general["max"]   =  max(array($diesel["max"], $diesel_extra["max"], $gasolina_95["max"],  $gasolina_98["max"]));
+
 
     $estadisticas[$target]['diesel']        =  $diesel;
     $estadisticas[$target]['diesel_extra']  =  $diesel_extra;
     $estadisticas[$target]['gasolina_95']   =  $gasolina_95;
     $estadisticas[$target]['gasolina_98']   =  $gasolina_98;
+    $estadisticas[$target]['general']       =  $general;
 
 
     // echo json_encode($estadisticas, JSON_FORCE_OBJECT);
@@ -138,7 +136,10 @@ if (isset($_GET["estadisticas"])) {
 }
 
 if (isset($_GET["historico"])) {
+    $response = $bd->getHistorico($_GET["id_ss"]);
+    echo json_encode($response, JSON_FORCE_OBJECT);
 }
+
 
 
 if (isset($_GET["coord"])) {
@@ -147,6 +148,16 @@ if (isset($_GET["coord"])) {
     echo json_encode($response, JSON_FORCE_OBJECT);
 }
 
+
+if (isset($_GET["favoritos"])) {
+    $response = $bd->getFavoritos(json_decode($_GET["listado"]));
+    echo json_encode($response, JSON_FORCE_OBJECT);
+}
+
+if (isset($_GET["localidades"])) {
+    $response = $bd->getListadoLocaliddes();
+    echo json_encode($response, JSON_FORCE_OBJECT);
+}
 
 
 

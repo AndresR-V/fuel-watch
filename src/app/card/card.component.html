@@ -5,15 +5,15 @@
     {{ dataApi?.rotulo }}
   </h5>
 
-  <i
+  <div
     (click)="anclar($event)"
     [class]="
       dataApi?.favorito ? 'fa-2x candado-anclado' : 'fa-2x text-secondary'
     "
     tabindex="0"
   >
-    <fa-icon [icon]="dataApi?.favorito ? faLock : faLockOpen"></fa-icon
-  ></i>
+    <fa-icon [icon]="dataApi?.favorito ? faLock : faLockOpen"></fa-icon>
+  </div>
 </div>
 <div class="card-body">
   <figure>

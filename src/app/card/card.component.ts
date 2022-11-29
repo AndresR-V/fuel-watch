@@ -43,8 +43,7 @@ export class CardComponent implements OnInit {
 
   public anclar(event: any) {
     event.preventDefault();
-
-
+      
     this.favoritos.emit(
       {
         id: event.target.parentNode.parentNode.parentNode.parentNode.id,
