@@ -14,6 +14,7 @@ interface Tarjeta{
   localidad?:string;
   historico:any;
   favorito?:boolean;
+  fecha:string;
 }
 
 
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   public arrayTarjetas: Tarjeta[] = [];
   public objetoEstadisticas = {};
 
-  public hola:string = "";
+  public fechaActualizacion:string = "";
 
   public UbicacionABuscar:string = "";
   public datosConsulta:any;
@@ -124,8 +125,8 @@ ubicacionABuscar(Item_busqueda: string) {
         gasolina98_avg    : this.estadisticas['gasolina_98']['avg']
       };
 
-      // se establecen los valores min y max del slider de precios con un margen de 10 centimos por arriba y por abajo
-      this.precioMin = this.estadisticas['general']['min'];
+      // se establecen los valores min y max del slider de precios con un margen de 20 centimos  por abajo
+      this.precioMin = this.estadisticas['general']['min'] - 0.2;
       this.precioMax = this.estadisticas['general']['max'];
 
 
@@ -189,7 +190,8 @@ public async refresh_cards( datosConsulta?:any , fav=false){
         latitud:datosConsulta[n]['latitud'].replace(",", "."),
         localidad:datosConsulta[n]['localidad'],
         historico: this.formatearHistorico(datosConsulta[n]["historico"]),
-        favorito: this.arrayFavoritos.includes(datosConsulta[n]["id_ss"])
+        favorito: this.arrayFavoritos.includes(datosConsulta[n]["id_ss"]),
+        fecha: datosConsulta[n]["fecha_actualizacion"]
         }
       );
 
@@ -211,7 +213,17 @@ public async refresh_cards( datosConsulta?:any , fav=false){
           );
 
 
+          // ordenamos array por el combustible que tengamos seleccionado
+          this.arrayTarjetas.sort((a, b) => {
+            return a.precios[this.rangosPrecio.target].precio - b.precios[this.rangosPrecio.target].precio;
+        });
 
+        let fecha = datosConsulta[n]["fecha_actualizacion"].split(' ')[0];
+        let ano = fecha.split('-')[0];
+        let mes = fecha.split('-')[1];
+        let dia = fecha.split('-')[2];
+
+        this.fechaActualizacion = dia + '-' + mes + '-' + ano;
 
 
   }

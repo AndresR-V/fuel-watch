@@ -8,15 +8,15 @@
 
 .search-container{
  margin-top:20px;
-  width: 70%;
+  width: 80%;
 
 }
 .search-container input{
   margin-right:5px;
   border-radius: 10px;
   border:none;
-  outline: 2px solid #f8f8f8;
-  color:#555;
+  /* outline: 2px solid #f8f8f8;
+  color:#555; */
 }
 
 .search-container #buscar{
@@ -27,13 +27,13 @@
   border-bottom-right-radius:10px;
   background-color:#ea8254;
   border:none;
-  outline: 2px solid #f8f8f8;
+  /* outline: 2px solid #f8f8f8; */
   color:#f2f2f2;
 }
 
 .sugerencias{
 height:30px;
-width: 70%;
+width: 80%;
 padding:  5px 10px;
 margin-right: 150px;
 margin-top: -20px;
@@ -55,7 +55,7 @@ display:none;
 /* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
 @media screen and (max-width:600px) {
 
-  .search-container{
+  .search-container, .sugerencias{
      width: 95%;
    }
 
@@ -63,7 +63,5 @@ display:none;
     width: 80px;
    }
 
-   .sugerencias{
-    width: 95%;
-   }
+
 }

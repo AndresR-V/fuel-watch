@@ -8,7 +8,7 @@
   <div
     (click)="anclar($event)"
     [class]="
-      dataApi?.favorito ? 'fa-2x candado-anclado' : 'fa-2x text-secondary'
+      dataApi?.favorito ? 'candado fa-2x candado-anclado' : 'candado fa-2x '
     "
     tabindex="0"
   >
@@ -19,7 +19,7 @@
   <figure>
     <img
       class="logo"
-      src="../../assets/images/logos/{{ dataApi?.rotulo }}.svg"
+      src="../../assets/images/logos/{{ dataApi?.rotulo.split(' ')[0] }}.svg"
       onerror="this.src= '../../assets/images/logos/GAS.svg'"
       alt="Logo empresa EESS"
     />
@@ -97,7 +97,7 @@
       dataApi?.longitud
     }}"
   >
-    <fa-icon [icon]="faLocation"></fa-icon>
+    <fa-icon [icon]="faLocation" class="locationIcon"></fa-icon>
   </a>
 </div>
 
@@ -112,7 +112,7 @@
   <div class="grafica-container">
     <div class="grafica">
       <ngx-charts-line-chart
-        [legend]="true"
+        [legend]="false"
         [showXAxisLabel]="false"
         [showYAxisLabel]="false"
         [xAxis]="true"

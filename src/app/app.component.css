@@ -14,9 +14,9 @@ background-color: var(--fondo-oscuro);
 
 
 
-#header-container app-filters{
-  width:80%;
-  padding-left: 250px;
+.app-filters{
+  width:100%;
+  /* padding-left: 250px; */
   display: flex;
   justify-content: center;
   margin-bottom:40px;
@@ -38,17 +38,21 @@ background-color: var(--fondo-oscuro);
 }
 
 .logo{
-  max-width: 200px;
-  position: absolute;
+
+  /* position: absolute;
   /* position:sticky; */
-  z-index: 100;
-
-  top: 100px;
-
-
+  /* z-index: 100;
+bac
+  top: 100px; */
+  width: 100vw;
+background-color: var(--fondo-oscuro);
+margin-bottom: -30px;
+display: flex;
+justify-content:center;
 }
 .logo img{
   width: 100%;
+  max-width: 350px;
   height: auto;
 
 
@@ -67,16 +71,16 @@ background-color: var(--fondo-oscuro);
   justify-content:space-evenly;
   gap:10px;
 
-  transition: all 0.5 ease-in-out;
 
 }
 
 #main-container app-search-bar{
   width: 100vw;
   background-color:var(--fondo-oscuro);
-  z-index:1;
+  z-index:100;
   position: sticky;
   top: 0;
+  float: left;
 
 }
 
@@ -87,7 +91,7 @@ background-color: var(--fondo-oscuro);
   padding:10px;
   width: 350px;
   /* width:18%; */
-
+  transition: all 0.5 ease-in-out;
 }
 
 #main-container  .fav{
@@ -104,6 +108,11 @@ background-color: var(--fondo-oscuro);
 }
 
 
+/* OCULTAR FITRO CUANDO NO HAYA BUSQUEDAS */
+
+app-filters {
+  display:none;
+}
 
 
 /* MEDIA QUERY PARA PANTALLAS INTERMEDIAS */
@@ -126,9 +135,9 @@ background-color: var(--fondo-oscuro);
 
     }
 
-    .logo{
+    /* .logo{
       display:none;
-    }
+    } */
 
   }
 

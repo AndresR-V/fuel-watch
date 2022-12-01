@@ -8,7 +8,8 @@ export class EstadisticasComponent implements OnInit {
 
    // para conectar con otros componentes
    @Input() stats:any;
-   @Input() ubicacion = "";
+   @Input() ubicacion:string = "";
+   @Input() fecha:string = "";
 
   constructor() { }
 

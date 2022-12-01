@@ -1,20 +1,10 @@
 <h1 class="seo">{{ title }}</h1>
-<figure class="logo">
-  <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
-</figure>
-
-<div id="header-container">
-  <app-filters
-    (combustiblesMostrar)="items_to_Show($event)"
-    (rangosPrecio)="rangoMostrar($event)"
-    (marcaSeleccionada)="seleccionarMarca($event)"
-    [listadoMarcas]="listadoMarcas"
-    [precioMin]="precioMin"
-    [precioMax]="precioMax"
-  ></app-filters>
-</div>
 
 <div id="main-container" class="container-fluid">
+  <figure class="logo">
+    <img src="../assets/images/fuel-watch-logo.svg" alt="logo Fuel-watch" />
+  </figure>
+
   <app-search-bar
     (searchValue)="ubicacionABuscar($event)"
     [ubicacion]="UbicacionABuscar"
@@ -22,10 +12,23 @@
   ></app-search-bar>
 
   <div id="stats-container">
+    <div id="header-container">
+      <app-filters
+        (combustiblesMostrar)="items_to_Show($event)"
+        (rangosPrecio)="rangoMostrar($event)"
+        (marcaSeleccionada)="seleccionarMarca($event)"
+        [listadoMarcas]="listadoMarcas"
+        [precioMin]="precioMin"
+        [precioMax]="precioMax"
+        [ngClass]="UbicacionABuscar ? 'app-filters' : 'oculto'"
+      >
+      </app-filters>
+    </div>
     <app-estadisticas
       class="stats"
       [stats]="objetoEstadisticas"
       [ubicacion]="UbicacionABuscar"
+      [fecha]="fechaActualizacion"
     ></app-estadisticas>
   </div>
 

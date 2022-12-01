@@ -44,17 +44,28 @@
   font-size:18px;
   /* background-color: red; */
 
+
 }
  /* SELECTOR Y SLIDER  */
+
 .container-slider{
   width:100%;
   min-width: 150px;
-  height:80px;
   background-color:var(--fondo-oscuro);
   color: var(--fondo-claro);
-  padding:0, 1rem;
+  padding-top:15px;
+  padding-bottom:15px;
+  padding-left:0;
+  padding-right: 15px;
   border-radius:10px;
+  outline:1px solid rgb(61,73,90);
   /* background-color: green; */
+
+
+  display:flex;
+  flex-direction:column;
+  /* justify-content:center; */
+
 }
 
 
@@ -109,12 +120,7 @@ ngx-slider{
   }
 
 
-  .container-slider{
 
-    display:flex;
-    flex-direction:column;
-
-  }
 
   .wrapper{
     display:block;

@@ -11,7 +11,7 @@ import { AppComponent } from '../app.component';
 
 export class FiltersComponent implements OnInit {
 
-  @Input() precioMin:any = 1.5; // minimo del slider
+  @Input() precioMin:any = 1.0; // minimo del slider
   @Input() precioMax:any = 2.5; // máximo del slider
   @Input() listadoMarcas:string[] = [];
 
@@ -62,9 +62,9 @@ export class FiltersComponent implements OnInit {
     gas98Enable     : new FormControl(true),
 
     slideTarget     : new FormControl(null,[ Validators.required ]),
-    minPrice        : new FormControl(1.50),
-    maxPrice        : new FormControl(2.50),
-    sliderControl   : new FormControl([20, 80])
+    // minPrice        : new FormControl(1.00),
+    // maxPrice        : new FormControl(2.50),
+    // sliderControl   : new FormControl([20, 80])
 
 
   });
@@ -73,14 +73,11 @@ export class FiltersComponent implements OnInit {
   actualminValue: number=0;
   actualmaxValue: number=0;
 
-  // estos datos se sacan de la media de precios actual
-  // minValue: number = 1.80;
-  // maxValue: number = 2.30;
   rangeTarget:string= "";
 
   private rangos = {
     target: this.rangeTarget,
-    min:  this.precioMin,
+    min: this.precioMin,
     max: this.precioMax,
   }
 
@@ -94,12 +91,12 @@ export class FiltersComponent implements OnInit {
       switch (label) {
         case LabelType.Low:
           this.actualminValue = value;
-          return "<b>Precio min:</b> €" + value;
+          return "<span style='color:white;'> Desde: <b>" + value +"</b> €</span>";
         case LabelType.High:
           this.actualmaxValue = value;
-          return "<b>Precio max:</b> €" + value;
+          return "<span style='color:white;'> Hasta: <b>" + value +"</b> €</span>";
         default:
-          return "  €" + value;
+          return "<span style='color:white;'> " + value +" €</span>";
       }
     },
     getSelectionBarColor:  (value: number): string => {return '#ea8254' },

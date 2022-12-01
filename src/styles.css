@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300;400&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria&family=Lato&family=Noto+Sans&family=Roboto:wght@500&family=Rubik&display=swap');
 
 ::ng-deep :root {
   --acento-naranja: #ea8254;
@@ -13,7 +13,7 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Lato, Roboto, Montserrat, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Alexandria, 'Roboto Mono',Rubik, 'Noto Sans', Lato, Roboto, "Helvetica Neue", sans-serif; }
 
 
 

@@ -1,22 +1,32 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { map } from 'rxjs/operators'
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class CrudService {
 corsHeaders;
-API: string = 'http://localhost/FuelWatch_php/BackEnd/crud.php'
-// API: string = '../BackEnd/crud.php'
+
+API:string='';
+
+
 
 constructor( private http:HttpClient) {
   this.corsHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '/'});
+
+
+
+  console.log("###############isDevMode()= "+isDevMode());
+  if (isDevMode()) {
+    this.API = 'http://localhost/FuelWatch_php/BackEnd/crud.php'
+  } else {
+    this.API= '../BackEnd/crud.php';
+  }
+
  }
 
  /**
