@@ -10,6 +10,7 @@
  margin-top:20px;
   width: 80%;
 
+
 }
 .search-container input{
   margin-right:5px;
@@ -29,6 +30,7 @@
   border:none;
   /* outline: 2px solid #f8f8f8; */
   color:#f2f2f2;
+  margin-right: .5px;
 }
 
 .sugerencias{
@@ -56,8 +58,9 @@ display:none;
 @media screen and (max-width:600px) {
 
   .search-container, .sugerencias{
-     width: 95%;
+     width: 90%;
    }
+
 
    .search-container #buscar{
     width: 80px;
