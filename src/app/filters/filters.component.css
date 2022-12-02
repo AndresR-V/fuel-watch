@@ -32,7 +32,7 @@
 
  /* CHECKBOXES DE LOS PRECIOS A MOSTRAR */
 .container-checkbox{
-  width: 65%;
+  width: 70%;
   min-width: 150px;
   height:40%;
   display:flex;
@@ -113,18 +113,33 @@ ngx-slider{
 }
 
 
+
 /* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
 @media screen and (max-width:600px) {
+
+  .container-checkbox{
+    width: 100%;
+    margin:10px;
+    padding:0;
+   }
+   .container-checkbox > label{
+    width: 45%;
+
+   }
+   .container-checkbox > label:first-child{
+    padding-left: 12px;
+
+   }
+
   select {
     width: 90%;
   }
-
-
-
 
   .wrapper{
     display:block;
     margin:15px 0 ;
    }
+
+
 
 }

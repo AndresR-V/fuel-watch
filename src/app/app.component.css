@@ -135,9 +135,22 @@ app-filters {
 
     }
 
-    /* .logo{
-      display:none;
-    } */
+
+    .loading-container{
+      display:flex;
+      justify-content: center;
+      width:100%;
+      height: 500px;
+
+    }
+    .loading{
+      text-align: center;
+    }
+
+    .loading img{
+      width: 100%;
+      height: auto;
+    }
 
   }
 

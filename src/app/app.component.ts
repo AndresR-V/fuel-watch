@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CarburantesService } from'./services/carburantes.service';
 import { CrudService } from './services/crud.service';
 import {CookieService} from 'ngx-cookie-service';
+import { cL } from 'chart.js/dist/chunks/helpers.core';
+import { end } from '@popperjs/core';
 
 interface Tarjeta{
   id: string;
@@ -86,6 +88,8 @@ public loadCompleted:boolean = false;
 // esta funcion se ejecuta el pulsar el boton buscar
 
 ubicacionABuscar(Item_busqueda: string) {
+  this.loadCompleted = false;
+  this.arrayTarjetas = [];
   this.itemBusqueda = Item_busqueda;
 
   console.log(Item_busqueda);
@@ -338,7 +342,11 @@ formatearHistorico(datos_historico?:any) {
       {
         name: 'Diesel',
         series: seriesDiesel,
-      });
+      },
+      {
+        name: 'Gasolina 95',
+        series: seriesGasolina95,
+      },);
   }
 
 
@@ -442,7 +450,6 @@ public async getUserLocation(): Promise <[number,number]>{
 }
 
 async ngOnInit() {
-
 
 
   // se obtienen los favoritso guardados

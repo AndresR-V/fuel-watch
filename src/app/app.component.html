@@ -32,6 +32,12 @@
     ></app-estadisticas>
   </div>
 
+  <div class="loading-container" *ngIf="!this.loadCompleted">
+    <figure class="loading">
+      <img src="../assets/animations/load.gif" alt="animacion de carga" />
+    </figure>
+  </div>
+
   <ng-container *ngFor="let card of arrayTarjetas.reverse()">
     <ng-container *ngIf="card.favorito">
       <app-card
@@ -46,7 +52,7 @@
   </ng-container>
 
   <ng-container *ngFor="let card of arrayTarjetas.reverse()">
-    <ng-container *ngIf="!card.favorito">
+    <ng-container *ngIf="!card.favorito && this.loadCompleted">
       <app-card
         [dataApi]="card"
         [stats]="objetoEstadisticas"
