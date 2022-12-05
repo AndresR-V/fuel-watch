@@ -18,6 +18,18 @@
       placeholder="Localidad o CP"
       value="{{ ubicacion }}"
     />
+    <span
+      #sugerenciasDiv
+      class="sugerencias"
+      tabindex="2"
+      (click)="datoABuscar.value = sugerenciasDiv.innerHTML"
+      (keydown.enter)="datoABuscar.value = sugerenciasDiv.innerHTML"
+      (click)="datoABuscar.focus()"
+      (keydown.enter)="datoABuscar.focus()"
+      (click)="sugerenciasDiv.style.display = 'none'"
+      (keydown.enter)="sugerenciasDiv.style.display = 'none'"
+    ></span>
+
     <div class="input-group-append">
       <input
         id="buscar"
@@ -33,16 +45,4 @@
       />
     </div>
   </div>
-
-  <div
-    #sugerenciasDiv
-    class="sugerencias"
-    tabindex="2"
-    (click)="datoABuscar.value = sugerenciasDiv.innerHTML"
-    (keydown.enter)="datoABuscar.value = sugerenciasDiv.innerHTML"
-    (click)="datoABuscar.focus()"
-    (keydown.enter)="datoABuscar.focus()"
-    (click)="sugerenciasDiv.style.display = 'none'"
-    (keydown.enter)="sugerenciasDiv.style.display = 'none'"
-  ></div>
 </form>

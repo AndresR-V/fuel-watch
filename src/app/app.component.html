@@ -32,12 +32,6 @@
     ></app-estadisticas>
   </div>
 
-  <div class="loading-container" *ngIf="!this.loadCompleted">
-    <figure class="loading">
-      <img src="../assets/animations/load.gif" alt="animacion de carga" />
-    </figure>
-  </div>
-
   <ng-container *ngFor="let card of arrayTarjetas.reverse()">
     <ng-container *ngIf="card.favorito">
       <app-card
@@ -63,4 +57,26 @@
       </app-card>
     </ng-container>
   </ng-container>
+
+  <!-- EN caso de que se haya buscado algo y no existan resultados mostrará gif de carga -->
+  <div
+    class="loading-container"
+    *ngIf="!this.loadCompleted && UbicacionABuscar"
+  >
+    <figure class="loading">
+      <img src="../assets/animations/load.gif" alt="animacion de carga" />
+    </figure>
+  </div>
+
+  <!-- en caso de que no se haya buscado nada mostrará un mensaje indicando que debe buscar un valor -->
+
+  <div
+    class="default-message"
+    style="color: '#999'; margin-top: 20%; text-align: center"
+    *ngIf="!UbicacionABuscar"
+  >
+    <h5>
+      Utiliza el buscador para encontrar resultados de gasolineras cercanas
+    </h5>
+  </div>
 </div>
