@@ -1,6 +1,6 @@
 <?php
 
-require_once('bd.php');
+require_once('/home/u461633657/domains/fuelwatch.es/public_html/BackEnd/BD.php');
 $bd = new BD();
 $response = [];
 

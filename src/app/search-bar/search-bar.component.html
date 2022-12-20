@@ -1,8 +1,7 @@
-<form
-  name="formSearchBar"
-  class="formSearchBar"
-  (submit)="sugerenciasDiv.style.display = 'none'"
->
+<form name="formSearchBar" class="formSearchBar">
+  <span #errorMessage [class]="error ? 'error' : 'error oculto'">
+    Ubicación inválida
+  </span>
   <div class="input-group mb-3 search-container">
     <input
       #datoABuscar
@@ -17,21 +16,20 @@
       name="input_search"
       placeholder="Localidad o CP"
       value="{{ ubicacion }}"
+      (focus)="error = false"
     />
+
     <span
       #sugerenciasDiv
       class="sugerencias"
       tabindex="2"
       (click)="datoABuscar.value = sugerenciasDiv.innerHTML"
-      (keydown.enter)="datoABuscar.value = sugerenciasDiv.innerHTML"
-      (click)="datoABuscar.focus()"
-      (keydown.enter)="datoABuscar.focus()"
-      (click)="sugerenciasDiv.style.display = 'none'"
-      (keydown.enter)="sugerenciasDiv.style.display = 'none'"
-    ></span>
+    >
+    </span>
 
     <div class="input-group-append">
       <input
+        autocapitalize="none"
         id="buscar"
         class="btn btn-primary"
         type="submit"
@@ -39,9 +37,8 @@
         value="Buscar"
         tabindex="3"
         (click)="getUbicacion(datoABuscar.value)"
-        (keydown.enter)="getUbicacion(datoABuscar.value)"
-        (click)="sugerenciasDiv.style.display = 'none'"
-        (keydown.enter)="sugerenciasDiv.style.display = 'none'"
+        (click)="datoABuscar.value = ubicacionABuscar"
+        (click)="sugerenciasDiv.innerHTML = ''"
       />
     </div>
   </div>

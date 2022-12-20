@@ -1,6 +1,11 @@
-<p *ngIf="ubicacion">
-  Estadísticas de precios en {{ ubicacion }} a fecha {{ fecha }}
-</p>
+<div class="infoweb" *ngIf="ubicacion">
+  <p>
+    Estadísticas de precios en {{ ubicacion }} a fecha {{ fecha }}
+
+    Fuente:
+    https://energia.gob.es/es-es/servicios/paginas/consultasdecarburantes.aspx
+  </p>
+</div>
 <div class="container estadisticas-container" *ngIf="stats?.diesel_min">
   <div class="row">
     <div class="col-3">Diesel</div>

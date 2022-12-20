@@ -37,8 +37,13 @@ img{
 }
 .candado:hover{
   color: var(--acento-verde);
+  animation: pop 0.5s ease-in-out 1;
+
  }
 
+.location:hover{
+  animation: pop 0.5s ease-in-out 1;
+}
 
 .card-body{
   width:180px;
@@ -100,6 +105,7 @@ figure {
 
 .locationIcon:hover{
   color:var(--acento-naranja);
+  animation: pop 0.3s linear 1;
 }
 
 .horario{
@@ -129,9 +135,10 @@ mat-panel-title > *{
 }
 
 
+
 .grafica {
   width: 100%;
-  height:300px;
+  height:250px;
   margin-right:-10px;
   margin-left:-10px;
   /* margin-bottom: -100px; */
@@ -146,4 +153,16 @@ mat-panel-title > *{
   color:var(--acento-naranja);
 }
 
+
+@keyframes pop{
+  50%  {transform: scale(1.2);}
+}
+
+@keyframes aparecer{
+
+  0%{transform: scale(0);border-radius:50%;opacity: 10%;}
+  20%{transform: scale(0.5); border-radius:20%;opacity: 50%;}
+  50%  {transform: scale(1.1);}
+  100%{}
+}
 

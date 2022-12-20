@@ -6,9 +6,10 @@
   </figure>
 
   <app-search-bar
-    (searchValue)="ubicacionABuscar($event)"
+    (searchValue)="ubicacionABuscar($event[0], $event[1])"
     [ubicacion]="UbicacionABuscar"
     [listaLocaliades]="listaLocaliades"
+    [listaCP]="listaCP"
   ></app-search-bar>
 
   <div id="stats-container">

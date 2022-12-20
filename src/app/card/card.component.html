@@ -91,7 +91,7 @@
   <a
     tabindex="0"
     title="Abrir en GoogleMaps"
-    class="fa-2x text-black"
+    class="fa-2x text-black location"
     target="_blank"
     href="https://www.google.com/maps/?q={{ dataApi?.latitud }},{{
       dataApi?.longitud
@@ -114,15 +114,16 @@
       <ngx-charts-line-chart
         [legend]="false"
         [showXAxisLabel]="false"
-        [showYAxisLabel]="false"
+        [showYAxisLabel]="true"
         [xAxis]="true"
-        [yAxis]="true"
+        [yAxis]="false"
         [xAxisLabel]="'Fecha'"
         [yAxisLabel]="'Precio'"
         [timeline]="true"
         [autoScale]="true"
         [results]="dataApi?.historico"
         [scheme]="colorScheme"
+        [view]="[300, 250]"
       >
       </ngx-charts-line-chart>
     </div>

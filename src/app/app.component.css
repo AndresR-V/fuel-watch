@@ -83,14 +83,18 @@ justify-content:center;
 
 }
 
-#main-container  .card{
+.card{
   background-color:#fff;
   /* margin-left:20px; */
   border-radius: 10px;
   padding:10px;
   width: 350px;
   /* width:18%; */
-  transition: all 0.5 ease-in-out;
+
+  animation: aparecer 0.35s  ease-out 1;
+
+
+
 }
 
 #main-container  .fav{
@@ -101,9 +105,22 @@ justify-content:center;
   animation: fadeIn .8 linear;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+@keyframes aparecer {
+  /* 0% {
+    opacity: 0;
+  }
+  50% { opacity: 0; }
+  100% { opacity: 1; } */
+  0% {
+    opacity: 0;
+    filter: brightness(3) saturate(3);
+    transform: scale(0.8, 0.8);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+    transform: scale(1, 1);
+  }
 }
 
 
@@ -159,6 +176,8 @@ app-filters {
     .default-message h5{
       color: var(--acento-gris);
     }
+
+
 
 
 
