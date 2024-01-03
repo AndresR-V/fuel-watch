@@ -1,0 +1,19 @@
+{
+  "name": "fuelwatch",
+  "version": "1.0.0",
+  "description": "https://fuelwatch.es/",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndresR-V/fuel-watch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndresR-V/fuel-watch/issues"
+  },
+  "homepage": "https://github.com/AndresR-V/fuel-watch#readme"
+}
